@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
-import NavBar from "@/Conmponents/layout/Navbar";
+import NavBar from "@/components/layout/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           <body className={inter.className}>
             <NavBar />
             {children}
-            </body>
+          </body>
         </html>
       </StyledComponentsRegistry>
     </ReduxProvider>
