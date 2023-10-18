@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import NavBar from "@/components/layout/Navbar";
+import Footer from "@/components/UI/footer";
+import WholeLayout from "@/components/layout/WholeLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +24,9 @@ export default function RootLayout({
       <StyledComponentsRegistry>
         <html lang="en">
           <body className={inter.className}>
-            <NavBar />
-            {children}
+            <WholeLayout>
+              <div className="sm:min-h-screen">{children}</div>
+            </WholeLayout>
           </body>
         </html>
       </StyledComponentsRegistry>

@@ -3,6 +3,10 @@
 import Image from "next/image";
 import category1 from "../../../public/banner1.jpg";
 import { useState } from "react";
+import Link from "next/link";
+import { authKey } from "@/utilites/authkey";
+import { getFromLocalStorage } from "@/utilites/local-storage";
+import { useGetCategoryQuery } from "@/redux/service/serviceApiSlice";
 
 const availableCategory = [
   {
@@ -79,7 +83,8 @@ const availableCategory = [
 
 const ServiceCategory = () => {
   const [show, setShow] = useState<number>(8);
-  console.log(show, availableCategory.length);
+  const token = getFromLocalStorage(authKey);
+  const { data, isLoading, isSuccess } = useGetCategoryQuery(token);
 
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -94,27 +99,28 @@ const ServiceCategory = () => {
           <div className="h-1 ml-auto duration-300 origin-left transform bg-[#7044e5] scale-x-30 group-hover:scale-x-100" />
         </h2>
       </div>
-      <div className="grid gap-y-2 sm:gap-y-0 mb-8 lg:grid-cols-4 sm:grid-cols-2">
-        {availableCategory.slice(0, show).map((category) => {
+      <div className="grid mb-8 lg:grid-cols-4 sm:grid-cols-2 gap-4">
+        {data?.data?.slice(0, show).map((category: any) => {
           return (
-            <div
-              key={category?._id}
-              className="relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl"
-            >
-              <Image
-                className="object-cover w-full h-56 md:h-64 xl:h-80"
-                src={category?.image}
-                alt="category"
-              />
-              <div className="absolute inset-0 px-6 py-4 transition-opacity duration-200 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
-                <p className="mb-4 text-lg font-bold text-gray-100">
-                  {category?.name}
-                </p>
-                <p className="text-sm tracking-wide text-gray-300">
-                  {category?.description}
-                </p>
+            <Link key={category?._id} href={`/category/${category?._id}`}>
+              <div className="relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl">
+                <Image
+                  width={400}
+                  height={300}
+                  className="object-cover w-full h-56 md:h-64 xl:h-80"
+                  src={category?.image}
+                  alt="category"
+                />
+                <div className="absolute inset-0 px-6 py-4 transition-opacity duration-200 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
+                  <p className="mb-4 text-lg font-bold text-gray-100">
+                    {category?.name}
+                  </p>
+                  <p className="text-sm tracking-wide text-gray-300">
+                    {category?.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
