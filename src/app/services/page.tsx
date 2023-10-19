@@ -48,7 +48,7 @@ const Services = ({ params }: { params: { category: string } }) => {
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
       <div>
-        <h2 className=" p-12 text-4xl font-bold sm:text-5xl">Services</h2>
+        <h2 className=" px-12 text-4xl font-bold sm:text-5xl">Services</h2>
       </div>
       <div className="p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.data?.map((service: any) => {

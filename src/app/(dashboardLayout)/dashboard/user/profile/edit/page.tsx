@@ -73,7 +73,7 @@ const ProfileUpdate = () => {
     if (isError) {
       message.error("something went wrong");
     }
-  }, [isLoading, isSuccess, isError]);
+  }, [isLoading, isSuccess, isError, router]);
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">

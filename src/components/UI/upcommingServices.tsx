@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
 import category1 from "../../../public/banner1.jpg";
+import category2 from "../../assests/pexels-karl-solano-2883049.jpg";
+import category3 from "../../assests/pexels-pixabay-262034.jpg"
+import category4 from "../../assests/pexels-pavel-danilyuk-6925357.jpg";
 import { useState } from "react";
 
 const upcomingServices = [
@@ -16,21 +19,21 @@ const upcomingServices = [
     description:
       " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
     name: "Mona Lisa",
-    image: category1,
+    image: category2,
   },
   {
     _id: 3,
     description:
       " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
     name: "Mona Lisa",
-    image: category1,
+    image: category3,
   },
   {
     _id: 4,
     description:
       " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
     name: "Mona Lisa",
-    image: category1,
+    image: category4,
   },
 ];
 

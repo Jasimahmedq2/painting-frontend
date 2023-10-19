@@ -25,7 +25,7 @@ export const NavBar = () => {
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 sticky top-0 bg-white shadow z-10">
       <div className="relative flex items-center justify-between">
-        <Link href="/" className="inline-flex items-center">
+        <div className="inline-flex items-center">
           <svg
             className="w-8 text-deep-purple-accent-400"
             viewBox="0 0 24 24"
@@ -44,45 +44,32 @@ export const NavBar = () => {
           <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
             PaintHUt
           </span>
-        </Link>
+        </div>
         <div className="sm:flex items-center hidden space-x-8 lg:flex">
+          <div>
+            <Link
+              href="/home"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+            >
+              home
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/services"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+            >
+              services
+            </Link>
+          </div>
           {isLoggedIn() && (
-            <div>
-              <Link
-                href="/dashboard"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-              >
+            <Link href="/dashboard">
+              <div className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]">
                 Dashboard
-              </Link>
-            </div>
+              </div>
+            </Link>
           )}
 
-          <div>
-            <Link
-              href="/"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-            >
-              Features
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-            >
-              Pricing
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-            >
-              About us
-            </Link>
-          </div>
           {isLoggedIn() ? (
             <div>
               <div
@@ -106,20 +93,21 @@ export const NavBar = () => {
               </Link>
             </div>
           )}
+          <div>
+            <Link
+              href="/addBooking"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+            >
+              <Badge count={cartLength}>
+                <ShoppingCartOutlined
+                  type="message"
+                  style={{ fontSize: "26px", color: "#08c" }}
+                />
+              </Badge>
+            </Link>
+          </div>
         </div>
-        <div>
-          <Link
-            href="/addBooking"
-            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-          >
-            <Badge count={cartLength}>
-              <ShoppingCartOutlined
-                type="message"
-                style={{ fontSize: "26px", color: "#08c" }}
-              />
-            </Badge>
-          </Link>
-        </div>
+
         <div className="lg:hidden">
           <button
             aria-label="Open Menu"
