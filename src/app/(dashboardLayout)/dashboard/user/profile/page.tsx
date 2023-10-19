@@ -1,6 +1,6 @@
-"use client"
+"use client";
+import Image from "next/image";
 import Link from "next/link";
-
 
 const ProfilePage = () => {
   return (
@@ -8,7 +8,9 @@ const ProfilePage = () => {
       <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
         <div className="relative flex items-center justify-center">
           <div className="mx-auto">
-            <img
+            <Image
+              width={500}
+              height={500}
               src="https://via.placeholder.com/150"
               alt="Profile"
               className="w-32 h-32 rounded-full border-4 border-blue-400"

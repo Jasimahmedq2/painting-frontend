@@ -100,6 +100,58 @@ const serviceApi = api.injectEndpoints({
       }),
       providesTags: ["service"],
     }),
+    placeOrder: builder.mutation({
+      query: (data) => ({
+        url: `/order/create-order`,
+        method: "POST",
+        headers: {
+          authorization: `${data?.token}`,
+        },
+        body: { items: data.itemsInfo, total: data.totalPrice },
+      }),
+      invalidatesTags: ["service"],
+    }),
+    editService: builder.mutation({
+      query: (data) => ({
+        url: `/service/update/${data?.id}`,
+        method: "PATCH",
+        headers: {
+          authorization: `${data?.token}`,
+        },
+        body: data.info,
+      }),
+      invalidatesTags: ["service"],
+    }),
+    removeService: builder.mutation({
+      query: (data) => ({
+        url: `/service/remove/${data?.id}`,
+        method: "DELETE",
+        headers: {
+          authorization: `${data?.token}`,
+        },
+      }),
+      invalidatesTags: ["service"],
+    }),
+    getOrder: builder.query({
+      query: (token) => ({
+        url: `/order/get-order`,
+        headers: {
+          authorization: `${token}`,
+        },
+      }),
+      providesTags: ["service"],
+    }),
+    changeStatus: builder.mutation({
+      query: (data) => ({
+        url: `/order/update-status/${data?.id}`,
+        method: "PUT",
+        headers: {
+          authorization: `${data?.token}`,
+        },
+        body: { status: data.status },
+      }),
+      invalidatesTags: ["service"],
+    }),
   }),
 });
 
@@ -114,4 +166,9 @@ export const {
   useGetAllServiceQuery,
   useAddShippingMutation,
   useGetShippingQuery,
+  usePlaceOrderMutation,
+  useEditServiceMutation,
+  useRemoveServiceMutation,
+  useGetOrderQuery,
+  useChangeStatusMutation,
 } = serviceApi;

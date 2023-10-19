@@ -15,6 +15,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Loading from "../loading";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addAddress } from "@/redux/service/serviceSlice";
+import { useRouter } from "next/navigation";
 
 export type IShippingAddress = {
   street: string;
@@ -25,6 +26,8 @@ export type IShippingAddress = {
 };
 
 const ShippingAddress = () => {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const { shippingAddress } = useAppSelector((state) => state.service);
   const token = getFromLocalStorage(authKey);
@@ -66,6 +69,7 @@ const ShippingAddress = () => {
   useEffect(() => {
     if (isSuccess) {
       message.success("shipping address added");
+      router.push("/order_details");
     }
     if (SIsSuccess) {
       dispatch(addAddress(address));

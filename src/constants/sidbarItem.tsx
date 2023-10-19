@@ -75,7 +75,7 @@ export const sidebarItems = (role: string) => {
         },
         {
           label: (
-            <Link href={"/dashboard/admin/manage-order"}>manage order</Link>
+            <Link href={"/dashboard/admin/manage_service"}>manage service</Link>
           ),
           key: "manage-order",
         },
@@ -87,9 +87,9 @@ export const sidebarItems = (role: string) => {
         },
         {
           label: (
-            <Link href={"/dashboard/admin/manage-booking"}>manage booking</Link>
+            <Link href={"/dashboard/admin/manage_booking"}>manage booking</Link>
           ),
-          key: "manage-booking",
+          key: "manage_booking",
         },
       ],
     },

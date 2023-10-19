@@ -5,6 +5,7 @@ import { useGetCartQuery } from "@/redux/service/serviceApiSlice";
 import { getFromLocalStorage } from "@/utilites/local-storage";
 import { authKey } from "@/utilites/authkey";
 import Loading from "../loading";
+import Link from "next/link";
 
 const AddBooking = () => {
   const token = getFromLocalStorage(authKey);
@@ -56,12 +57,13 @@ const AddBooking = () => {
           );
         })}
       </div>
-
-      <div className="flex justify-center mt-6 sm:mt-12">
-        <button className="bg-transparent hover:bg-blue-500 w-1/2 sm:w-1/4 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          Check Out
-        </button>
-      </div>
+      <Link href="/shipping_address">
+        <div className="flex justify-center mt-6 sm:mt-12">
+          <button className="bg-transparent hover:bg-blue-500 w-1/2 sm:w-1/4 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            Check Out
+          </button>
+        </div>
+      </Link>
     </div>
   );
 };

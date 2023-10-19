@@ -1,4 +1,3 @@
-import React from "react";
 
 import { Layout, Menu, Button, theme } from "antd";
 const { Header, Sider, Content } = Layout;
