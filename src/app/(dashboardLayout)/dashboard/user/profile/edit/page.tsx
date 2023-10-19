@@ -1,22 +1,10 @@
 "use client";
 
-import FormInput from "@/components/Forms/FormInput";
-import { SubmitHandler } from "react-hook-form";
 import { Button, Col, Divider, Form, Row } from "antd";
 import editImage from "../../../../../../assests/Mobile login-pana.svg";
 import Image from "next/image";
 
-type FormValues = {
-  id: string;
-  password: string;
-};
-
 const EditProfile: React.FC = () => {
-
-  const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    console.log(data);
-  };
-
   return (
     <Row
       justify="center"
@@ -37,26 +25,19 @@ const EditProfile: React.FC = () => {
           edit your profile
         </h1>
         <div>
-          <Form submitHandler={onSubmit}>
+          <form>
             <div>
-              <FormInput name="id" type="text" size="large" label="User Id" />
+              <input type="text" />
             </div>
             <div
               style={{
                 margin: "15px 0px",
               }}
             >
-              <FormInput
-                name="password"
-                type="text"
-                size="large"
-                label="User Password"
-              />
+              <input type="text" />
             </div>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form>
+            <button type="submit">Login</button>
+          </form>
         </div>
       </Col>
     </Row>

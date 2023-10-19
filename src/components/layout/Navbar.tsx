@@ -1,12 +1,21 @@
 "use client";
+import { useGetCartQuery } from "@/redux/service/serviceApiSlice";
 import { isLoggedIn, removeUserInfo } from "@/utilites/auth.service";
 import { authKey } from "@/utilites/authkey";
+import { getFromLocalStorage } from "@/utilites/local-storage";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Avatar, Badge } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 export const NavBar = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const token = getFromLocalStorage(authKey);
+  const { data, isLoading, isError, isSuccess } = useGetCartQuery(token);
+
+  const cartLength = data?.data?.cart?.items.length;
 
   const handleLogin = () => {
     removeUserInfo(authKey);
@@ -97,6 +106,19 @@ export const NavBar = () => {
               </Link>
             </div>
           )}
+        </div>
+        <div>
+          <Link
+            href="/addBooking"
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+          >
+            <Badge count={cartLength}>
+              <ShoppingCartOutlined
+                type="message"
+                style={{ fontSize: "26px", color: "#08c" }}
+              />
+            </Badge>
+          </Link>
         </div>
         <div className="lg:hidden">
           <button
@@ -192,8 +214,6 @@ export const NavBar = () => {
                     <div>
                       <Link
                         href="/"
-                        aria-label="Product pricing"
-                        title="Product pricing"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
                       >
                         Pricing

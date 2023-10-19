@@ -1,3 +1,4 @@
+"use client"
 import { isLoggedIn } from "@/utilites/auth.service";
 
 const DashboardPage = () => {

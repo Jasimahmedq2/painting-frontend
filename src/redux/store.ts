@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from "./api";
+import serviceReducer from "./service/serviceSlice";
 // ...
 
 export const store = configureStore({
   reducer: {
+    service: serviceReducer,
     [api.reducerPath]: api.reducer,
   },
 

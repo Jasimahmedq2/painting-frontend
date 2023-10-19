@@ -3,7 +3,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
-import NavBar from "@/components/layout/Navbar";
 import Footer from "@/components/UI/footer";
 import WholeLayout from "@/components/layout/WholeLayout";
 

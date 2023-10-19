@@ -2,49 +2,56 @@
 
 import Image from "next/image";
 import category1 from "../../assests/Mobile login-pana.svg";
-import { Descriptions } from "antd";
+import { Descriptions, message } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import Link from "next/link";
-
-const upcomingServices = [
-  {
-    _id: 1,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 2,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 3,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 4,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-];
+import {
+  useAddToCartMutation,
+  useGetAllServiceQuery,
+} from "@/redux/service/serviceApiSlice";
+import { getFromLocalStorage } from "@/utilites/local-storage";
+import { authKey } from "@/utilites/authkey";
+import { useEffect } from "react";
+import Loading from "../loading";
 
 const Services = ({ params }: { params: { category: string } }) => {
+  const token = getFromLocalStorage(authKey);
+  const { data, isLoading: SisLoading } = useGetAllServiceQuery(token);
+
+  const [addToCart, { isLoading, isSuccess, isError }] = useAddToCartMutation();
+
+  const handleAddService = async (id: string) => {
+    const serviceInfo = {
+      token: token,
+      info: {
+        service: id,
+        quantity: 1,
+      },
+    };
+    await addToCart(serviceInfo);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      message.success("successfully add the service in cart");
+    }
+    if (isError) {
+      message.error("something went wrong");
+    }
+    if (isLoading) {
+      message.loading("loading...");
+    }
+  }, [isLoading, isSuccess, isError]);
+  if (SisLoading) {
+    return <Loading />;
+  }
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
       <div>
         <h2 className=" p-12 text-4xl font-bold sm:text-5xl">Services</h2>
       </div>
       <div className="p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {upcomingServices.map((service) => {
+        {data?.data?.map((service: any) => {
           return (
             <div
               key={service?._id}
@@ -77,7 +84,10 @@ const Services = ({ params }: { params: { category: string } }) => {
                   </button>
                 </Link>
 
-                <button className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                <button
+                  onClick={() => handleAddService(service?._id)}
+                  className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                >
                   booking
                 </button>
               </div>

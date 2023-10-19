@@ -1,44 +1,18 @@
 "use client";
-
+import { useEffect } from "react";
 import Image from "next/image";
 import category1 from "../../../../public/banner1.jpg";
-import { Descriptions } from "antd";
+import { Descriptions, message } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import Link from "next/link";
 import { getFromLocalStorage } from "@/utilites/local-storage";
-import { useGetSingleCategoryQuery } from "@/redux/service/serviceApiSlice";
+import {
+  useAddToCartMutation,
+  useGetSingleCategoryQuery,
+} from "@/redux/service/serviceApiSlice";
 import { authKey } from "@/utilites/authkey";
 
-const upcomingServices = [
-  {
-    _id: 1,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 2,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 3,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-  {
-    _id: 4,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: category1,
-  },
-];
+
 
 const Page = ({ params }: { params: { category: string } }) => {
   const token = getFromLocalStorage(authKey);
@@ -47,7 +21,33 @@ const Page = ({ params }: { params: { category: string } }) => {
     token: token,
   });
 
-  console.log(data);
+  const [
+    addToCart,
+    { isLoading: BIsLoading, isSuccess: BIsSuccess, isError: BIsError },
+  ] = useAddToCartMutation();
+
+  const handleAddService = async (id: string) => {
+    const serviceInfo = {
+      token: token,
+      info: {
+        service: id,
+        quantity: 1,
+      },
+    };
+    await addToCart(serviceInfo);
+  };
+
+  useEffect(() => {
+    if (BIsSuccess) {
+      message.success("successfully add the service in cart");
+    }
+    if (BIsError) {
+      message.error("something went wrong");
+    }
+    if (BIsLoading) {
+      message.loading("loading");
+    }
+  }, [BIsLoading, BIsSuccess, BIsError]);
 
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
@@ -87,7 +87,10 @@ const Page = ({ params }: { params: { category: string } }) => {
                   </button>
                 </Link>
 
-                <button className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                <button
+                  onClick={() => handleAddService(service?._id)}
+                  className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                >
                   booking
                 </button>
               </div>

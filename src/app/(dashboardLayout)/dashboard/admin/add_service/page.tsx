@@ -27,7 +27,11 @@ const AddServices = () => {
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<IAddService>();
+  } = useForm<IAddService>({
+    defaultValues: {
+      name: "jasim ahmed"
+    }
+  });
 
   const [AddService, { isLoading, isError, isSuccess, error }] =
     useAddServiceMutation();

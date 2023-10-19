@@ -37,9 +37,9 @@ const Login = () => {
       router.push("/");
     }
     if (isError) {
-      message.error(error?.data?.errorMessage[0].message);
+      message.error("something went wrong");
     }
-  }, [isLoading, isError, isSuccess, router]);
+  }, [isLoading, isError, isSuccess, router, LData?.data?.token]);
   return (
     <div className="overflow-hidden bg-gray-900 sm:h-screen">
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">

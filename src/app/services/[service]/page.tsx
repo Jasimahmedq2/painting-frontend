@@ -14,6 +14,7 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { authKey } from "@/utilites/authkey";
 import { message } from "antd";
 import { useEffect } from "react";
+import Loading from "@/app/loading";
 
 const upcomingServices = [
   {
@@ -48,11 +49,11 @@ const upcomingServices = [
 
 const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   const token = getFromLocalStorage(authKey);
-  const { data } = useGetSingleServiceQuery({
+  const { data, isLoading: SIsloading } = useGetSingleServiceQuery({
     id: params.service,
     token: token,
   });
-  const { data: CData } = useGetSingleCategoryQuery({
+  const { data: CData, isLoading: CIsLoading } = useGetSingleCategoryQuery({
     id: data?.data?.category,
     token: token,
   });
@@ -77,7 +78,14 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
     if (isError) {
       message.error("something went wrong");
     }
+    if (isLoading) {
+      message.loading("loading...");
+    }
   }, [isLoading, isSuccess, isError]);
+
+  if (SIsloading || CIsLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="bg-white p-2 shadow sm:px-12 sm:py-12 sm:min-h-screen">
@@ -85,7 +93,7 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
         <div>
           <Image width={500} height={500} alt="image" src={data?.data?.image} />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 sm:w-1/2">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-gray-900">
               {data?.data?.name}
@@ -147,7 +155,10 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
                     </button>
                   </Link>
 
-                  <button className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                  <button
+                    onClick={() => handleAddService(service?._id)}
+                    className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  >
                     booking
                   </button>
                 </div>

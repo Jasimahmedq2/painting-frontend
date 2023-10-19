@@ -62,6 +62,44 @@ const serviceApi = api.injectEndpoints({
       }),
       invalidatesTags: ["service"],
     }),
+    getCart: builder.query({
+      query: (token) => ({
+        url: `/cart/get-cart`,
+        headers: {
+          authorization: `${token}`,
+        },
+      }),
+      providesTags: ["service"],
+    }),
+    getAllService: builder.query({
+      query: (token) => ({
+        url: `/service/get-services`,
+        headers: {
+          authorization: `${token}`,
+        },
+      }),
+      providesTags: ["service"],
+    }),
+    addShipping: builder.mutation({
+      query: (data) => ({
+        url: `/shipping/add-shipping`,
+        method: "POST",
+        headers: {
+          authorization: `${data?.token}`,
+        },
+        body: data.info,
+      }),
+      invalidatesTags: ["service"],
+    }),
+    getShipping: builder.query({
+      query: (token) => ({
+        url: `/shipping/get-shipping`,
+        headers: {
+          authorization: `${token}`,
+        },
+      }),
+      providesTags: ["service"],
+    }),
   }),
 });
 
@@ -72,4 +110,8 @@ export const {
   useGetSingleCategoryQuery,
   useGetSingleServiceQuery,
   useAddToCartMutation,
+  useGetCartQuery,
+  useGetAllServiceQuery,
+  useAddShippingMutation,
+  useGetShippingQuery,
 } = serviceApi;
