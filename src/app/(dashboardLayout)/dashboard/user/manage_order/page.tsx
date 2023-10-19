@@ -1,28 +1,27 @@
 "use client";
 import Loading from "@/app/loading";
-import {
-  useChangeStatusMutation,
-  useGetOrderQuery,
-} from "@/redux/service/serviceApiSlice";
+import { useChangeStatusMutation } from "@/redux/service/serviceApiSlice";
 import { authKey } from "@/utilites/authkey";
 import { getFromLocalStorage } from "@/utilites/local-storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Dropdown, message } from "antd";
+import { useGetUserOrderQuery } from "@/redux/auth/authApiSlice";
 
-const ManageBooking = () => {
+const ManageOrder = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [userId, setUserId] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useRouter();
   const token = getFromLocalStorage(authKey);
   const [searchResults, setSearchResults] = useState([]);
-  const { data, isLoading, isSuccess } = useGetOrderQuery(token);
+  const { data, isLoading, isSuccess } = useGetUserOrderQuery(token);
   const [
     changeStatus,
     { isLoading: CIsLoading, isSuccess: CIsSuccess, isError: CIsError },
   ] = useChangeStatusMutation();
+  console.log(data?.data, "datadffdf");
 
   useEffect(() => {
     if (isLoading) {
@@ -75,7 +74,7 @@ const ManageBooking = () => {
       <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3 sm:min-h-screen">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
-            <div className="text-lg font-bold">manage booking</div>
+            <div className="text-lg font-bold">My Order</div>
             <div className="w-1/2 py-4 px-2">
               <input
                 type="text"
@@ -108,7 +107,7 @@ const ManageBooking = () => {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  searchResults.length > 0 &&
+                  searchResults?.length > 0 &&
                   searchResults?.map((result: any) => {
                     console.log({ result });
                     return (
@@ -123,7 +122,7 @@ const ManageBooking = () => {
                           <td className="px-4 py-4">{result?.total}</td>
                           <td>
                             <button
-                              className="p-4 cursor-pointer relative border border-1 rounded bg-lime-300"
+                              className="px-4 py-2 cursor-pointer relative border border-1 rounded bg-lime-300"
                               onClick={() => openMenu(result?._id)}
                             >
                               {result?.status}
@@ -137,20 +136,8 @@ const ManageBooking = () => {
                                   pending
                                 </button>
                                 <button
-                                  onClick={() => toggleMenu("accepted")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  accepted
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("completed")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  completed
-                                </button>
-                                <button
                                   onClick={() =>
-                                    toggleMenu("canceled", result?._id)
+                                    toggleMenu("canceled")
                                   }
                                   className="w-full py-2 hover:bg-gray-200 text-left"
                                 >
@@ -173,4 +160,4 @@ const ManageBooking = () => {
   );
 };
 
-export default ManageBooking;
+export default ManageOrder;

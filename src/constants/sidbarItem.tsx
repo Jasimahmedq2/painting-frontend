@@ -13,6 +13,10 @@ import { USER_ROLE } from "./role";
 export const sidebarItems = (role: string) => {
   const defaultSidebarItems: MenuProps["items"] = [
     {
+      label: <Link href="/home">Home</Link>,
+      key: "home",
+    },
+    {
       label: "Profile",
       key: "profile",
       icon: <ProfileOutlined />,
@@ -32,7 +36,7 @@ export const sidebarItems = (role: string) => {
       key: "manage-order",
       children: [
         {
-          label: <Link href="/dashboard/user/order">All Order</Link>,
+          label: <Link href="/dashboard/user/manage_order">All Order</Link>,
           key: "order",
         },
       ],
@@ -54,9 +58,8 @@ export const sidebarItems = (role: string) => {
 
   const commonAdminSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-user`,
+      label: <Link href={"/dashboard/admin/manage_user"}>manage user</Link>,
+      key: "manage_user",
     },
     {
       label: "manage-service",
@@ -81,12 +84,6 @@ export const sidebarItems = (role: string) => {
         },
         {
           label: (
-            <Link href={"/dashboard/admin/manage-content"}>manage content</Link>
-          ),
-          key: "manage-content",
-        },
-        {
-          label: (
             <Link href={"/dashboard/admin/manage_booking"}>manage booking</Link>
           ),
           key: "manage_booking",
@@ -105,9 +102,7 @@ export const sidebarItems = (role: string) => {
       children: [
         {
           label: (
-            <Link href={`/dashboard/super_admin/manage-admin`}>
-              manage admin
-            </Link>
+            <Link href={`/dashboard/admin/manage_user`}>manage admin</Link>
           ),
           key: `manage-admin`,
         },

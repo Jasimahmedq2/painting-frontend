@@ -1,8 +1,17 @@
 "use client";
+import Loading from "@/app/loading";
+import { useUserProfileQuery } from "@/redux/auth/authApiSlice";
+import { authKey } from "@/utilites/authkey";
+import { getFromLocalStorage } from "@/utilites/local-storage";
 import Image from "next/image";
 import Link from "next/link";
 
 const ProfilePage = () => {
+  const token = getFromLocalStorage(authKey);
+  const { data, isLoading } = useUserProfileQuery(token);
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="bg-gradient-to-br from-blue-500 to-teal-400 min-h-screen flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
@@ -11,16 +20,16 @@ const ProfilePage = () => {
             <Image
               width={500}
               height={500}
-              src="https://via.placeholder.com/150"
+              src={data?.data?.image}
               alt="Profile"
               className="w-32 h-32 rounded-full border-4 border-blue-400"
             />
           </div>
         </div>
         <h1 className="text-3xl text-blue-800 font-bold text-center mt-4">
-          John Doe
+          {data?.data?.name}
         </h1>
-        <p className="text-gray-500 text-center">john.doe@example.com</p>
+        <p className="text-gray-500 text-center">{data?.data?.email}</p>
         <p className="text-gray-600 mt-4 text-center">
           A creative web developer passionate about crafting unique digital
           experiences.

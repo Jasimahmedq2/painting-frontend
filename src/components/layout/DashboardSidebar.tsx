@@ -13,9 +13,11 @@ import type { MenuProps } from "antd";
 import { Layout, Menu, Button, theme } from "antd";
 import { sidebarItems } from "@/constants/sidbarItem";
 import { USER_ROLE } from "@/constants/role";
+import { getUserInfo } from "@/utilites/auth.service";
 const { Header, Sider, Content } = Layout;
 
 const DashboardSidebar = () => {
+  const { role } = getUserInfo();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -35,7 +37,7 @@ const DashboardSidebar = () => {
         theme="dark"
         defaultSelectedKeys={["1"]}
         mode="inline"
-        items={sidebarItems(USER_ROLE.ADMIN)}
+        items={sidebarItems(role)}
       />
     </Sider>
   );

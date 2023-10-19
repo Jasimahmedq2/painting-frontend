@@ -1,5 +1,4 @@
 "use client";
-import { useGetPainterUserQuery } from "@/redux/auth/authApiSlice";
 import {
   useAddCategoryMutation,
   useAddServiceMutation,
@@ -28,8 +27,6 @@ export type IShippingAddress = {
 const ShippingAddress = () => {
   const router = useRouter();
 
-  const dispatch = useAppDispatch();
-  const { shippingAddress } = useAppSelector((state) => state.service);
   const token = getFromLocalStorage(authKey);
   const {
     data: shippingData,
@@ -37,22 +34,13 @@ const ShippingAddress = () => {
     isSuccess: SIsSuccess,
   } = useGetShippingQuery(token);
   const address = shippingData?.data;
-  console.log("shippingAddress", shippingAddress?.street);
 
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<IShippingAddress>({
-    defaultValues: {
-      street: shippingAddress?.street,
-      city: shippingAddress?.city,
-      phoneNo: shippingAddress?.phoneNo,
-      country: shippingAddress?.country,
-      postalCode: shippingAddress?.postalCode,
-    },
-  });
+  } = useForm<IShippingAddress>();
 
   const [addShipping, { isLoading, isSuccess, isError }] =
     useAddShippingMutation();
@@ -62,7 +50,6 @@ const ShippingAddress = () => {
       token: token,
       info: data,
     };
-    console.log(shippingInfo);
     await addShipping(shippingInfo);
   };
 
@@ -71,13 +58,11 @@ const ShippingAddress = () => {
       message.success("shipping address added");
       router.push("/order_details");
     }
-    if (SIsSuccess) {
-      dispatch(addAddress(address));
-    }
+
     if (isError) {
       message.error("something went wrong");
     }
-  }, [isLoading, isSuccess, isError, SIsSuccess, dispatch, address]);
+  }, [isLoading, isSuccess, isError, SIsSuccess, address, router]);
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">

@@ -38,6 +38,65 @@ const authApi = api.injectEndpoints({
       },
       providesTags: ["user"],
     }),
+    getAllUser: builder.query({
+      query(token) {
+        return {
+          url: `/user/get-users`,
+          headers: {
+            authorization: `${token}`,
+          },
+        };
+      },
+      providesTags: ["user"],
+    }),
+    getUserOrder: builder.query({
+      query(token) {
+        return {
+          url: `/order/get-user-order`,
+          headers: {
+            authorization: `${token}`,
+          },
+        };
+      },
+      providesTags: ["service"],
+    }),
+    changeRole: builder.mutation({
+      query(data) {
+        return {
+          url: `/user/role/:${data?.userId}`,
+          method: "PUT",
+          headers: {
+            authorization: `${data?.token}`,
+          },
+          body: { role: data?.role },
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
+    userProfile: builder.query({
+      query(token) {
+        return {
+          url: `/user/profile`,
+          headers: {
+            authorization: `${token}`,
+          },
+        };
+      },
+      providesTags: ["user"],
+    }),
+    profileUpdate: builder.mutation({
+      query(data) {
+        return {
+          url: `/user/profile/update`,
+          method: "PATCH",
+          headers: {
+            authorization: `${data?.token}`,
+          },
+          body: data.info,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -46,4 +105,9 @@ export const {
   useVerifyEmailMutation,
   useLoginUserMutation,
   useGetPainterUserQuery,
+  useGetAllUserQuery,
+  useChangeRoleMutation,
+  useGetUserOrderQuery,
+  useUserProfileQuery,
+  useProfileUpdateMutation,
 } = authApi;

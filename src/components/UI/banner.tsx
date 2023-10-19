@@ -3,10 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import banner1 from "../../../public/banner1.jpg";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-AOS.init();
 
 const Banner = () => {
   return (
@@ -28,11 +24,11 @@ const Banner = () => {
       </div>
       <div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
         <div
-          data-aos="fade-right"
-          data-aos-offset="200"
-          data-aos-delay="50"
-          data-aos-duration="1000"
-          data-aos-easing="ease-in-out"
+          // data-aos="fade-right"
+          // data-aos-offset="200"
+          // data-aos-delay="50"
+          // data-aos-duration="1000"
+          // data-aos-easing="ease-in-out"
           className="mb-16 lg:my-40 lg:max-w-lg lg:pr-5"
         >
           <h2 className="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
@@ -52,7 +48,7 @@ const Banner = () => {
           </p>
           <div className="flex items-center">
             <Link
-              href="/"
+              href="/services"
               className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#681eff] focus:shadow-outline focus:outline-none"
             >
               Services

@@ -10,26 +10,32 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Dropdown, message } from "antd";
+import {
+  useChangeRoleMutation,
+  useGetAllUserQuery,
+} from "@/redux/auth/authApiSlice";
+import { set } from "react-hook-form";
 
-const ManageBooking = () => {
+const ManageUser = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [userId, setUserId] = useState<string>("");
+
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useRouter();
   const token = getFromLocalStorage(authKey);
   const [searchResults, setSearchResults] = useState([]);
-  const { data, isLoading, isSuccess } = useGetOrderQuery(token);
+  const { data, isLoading, isSuccess } = useGetAllUserQuery(token);
   const [
-    changeStatus,
+    changeRole,
     { isLoading: CIsLoading, isSuccess: CIsSuccess, isError: CIsError },
-  ] = useChangeStatusMutation();
+  ] = useChangeRoleMutation();
 
   useEffect(() => {
     if (isLoading) {
       return;
     }
     const filteredResults = data?.data?.filter((response: any) =>
-      `${response?._id} ${response?.user?.email} ${response?.name}`
+      `${response?._id} ${response?.email} ${response?.name}`
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     );
@@ -41,7 +47,7 @@ const ManageBooking = () => {
       message.loading("loading...");
     }
     if (CIsSuccess) {
-      message.success("status changed");
+      message.success("role changed");
     }
     if (CIsError) {
       message.error("something went wrong");
@@ -52,14 +58,13 @@ const ManageBooking = () => {
     return <Loading />;
   }
 
-  const toggleMenu = async (status: string) => {
-    const statusInfo = {
+  const toggleMenu = async (role: string) => {
+    const userInfo = {
       token,
-      status,
+      role,
       userId,
     };
-    await changeStatus(statusInfo);
-    setShowMenu(!showMenu);
+    await changeRole(userInfo);
   };
 
   const openMenu = (id: string) => {
@@ -75,7 +80,7 @@ const ManageBooking = () => {
       <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3 sm:min-h-screen">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
-            <div className="text-lg font-bold">manage booking</div>
+            <div className="text-lg font-bold">manage user</div>
             <div className="w-1/2 py-4 px-2">
               <input
                 type="text"
@@ -94,13 +99,13 @@ const ManageBooking = () => {
                     Email
                   </th>
                   <th className="px-4 py-3 border-b-2 border-green-500">
-                    service id
+                    phoneNo
                   </th>
                   <th className="px-4 py-3 border-b-2 border-green-500">
-                    price
+                    delete
                   </th>
                   <th className="px-4 py-3 border-b-2 border-green-500">
-                    status
+                    role
                   </th>
                 </tr>
               </thead>
@@ -110,51 +115,53 @@ const ManageBooking = () => {
                 ) : (
                   searchResults.length > 0 &&
                   searchResults?.map((result: any) => {
-                    console.log({ result });
                     return (
                       <>
                         <tr
                           key={result?._id}
                           className="py-10 border-b border-gray-200 hover:bg-gray-100"
                         >
-                          <td className="px-4 py-4">{result?.user?.name}</td>
-                          <td className=" px-4 py-4">{result?.user?.email}</td>
-                          <td className=" px-4 py-4">{result?._id}</td>
-                          <td className="px-4 py-4">{result?.total}</td>
+                          <td className="px-4 py-4">{result?.name}</td>
+                          <td className=" px-4 py-4">{result?.email}</td>
+                          <td className=" px-4 py-4">{result?.phoneNo}</td>
+                          <td className="px-4 py-4">
+                            <button className="bg-red-400 text-white px-4 py-2 rounded">
+                              delete
+                            </button>
+                          </td>
                           <td>
                             <button
-                              className="p-4 cursor-pointer relative border border-1 rounded bg-lime-300"
+                              className="px-4 py-2 cursor-pointer relative border border-1 rounded bg-lime-300"
                               onClick={() => openMenu(result?._id)}
                             >
-                              {result?.status}
+                              {result?.role}
                             </button>
+
                             {showMenu && (
                               <div className="absolute right-0 top-0 mt-10 w-48 bg-white shadow-lg rounded-lg p-2 z-20">
                                 <button
-                                  onClick={() => toggleMenu("pending")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  pending
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("accepted")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  accepted
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("completed")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  completed
-                                </button>
-                                <button
                                   onClick={() =>
-                                    toggleMenu("canceled", result?._id)
+                                    toggleMenu("admin")
                                   }
                                   className="w-full py-2 hover:bg-gray-200 text-left"
                                 >
-                                  canceled
+                                  admin
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    toggleMenu("customer")
+                                  }
+                                  className="w-full py-2 hover:bg-gray-200 text-left"
+                                >
+                                  customer
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    toggleMenu("painter")
+                                  }
+                                  className="w-full py-2 hover:bg-gray-200 text-left"
+                                >
+                                  painter
                                 </button>
                               </div>
                             )}
@@ -173,4 +180,4 @@ const ManageBooking = () => {
   );
 };
 
-export default ManageBooking;
+export default ManageUser;
