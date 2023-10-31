@@ -9,13 +9,22 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Dropdown, message } from "antd";
+import { message } from "antd";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/UI/dropdown-menu";
+import { Button } from "@/components/UI/button";
 
 const ManageBooking = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [userId, setUserId] = useState<string>("");
+  const [position, setPosition] = useState("bottom");
+  // const [orderId, setOrderId] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useRouter();
   const token = getFromLocalStorage(authKey);
   const [searchResults, setSearchResults] = useState([]);
   const { data, isLoading, isSuccess } = useGetOrderQuery(token);
@@ -52,27 +61,28 @@ const ManageBooking = () => {
     return <Loading />;
   }
 
-  const toggleMenu = async (status: string) => {
+  const handleChangeStatus = async (status: string, orderId: string) => {
     const statusInfo = {
       token,
       status,
-      userId,
+      orderId,
     };
+    console.log("statusInfo:", statusInfo);
     await changeStatus(statusInfo);
-    setShowMenu(!showMenu);
   };
 
-  const openMenu = (id: string) => {
-    setShowMenu(!showMenu);
-    setUserId(id);
-  };
+  // const handleSetOrderId = (id: string) => {
+  //   setOrderId(id);
+  //   console.log({ id });
+  // };
+
   const handleSearch = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
   return (
     <div>
-      <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3 sm:min-h-screen">
+      <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
             <div className="text-lg font-bold">manage booking</div>
@@ -122,42 +132,65 @@ const ManageBooking = () => {
                           <td className=" px-4 py-4">{result?._id}</td>
                           <td className="px-4 py-4">{result?.total}</td>
                           <td>
-                            <button
-                              className="p-4 cursor-pointer relative border border-1 rounded bg-lime-300"
-                              onClick={() => openMenu(result?._id)}
-                            >
-                              {result?.status}
-                            </button>
-                            {showMenu && (
-                              <div className="absolute right-0 top-0 mt-10 w-48 bg-white shadow-lg rounded-lg p-2 z-20">
-                                <button
-                                  onClick={() => toggleMenu("pending")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline">
+                                  {result?.status}
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>
+                                  order Status
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuRadioGroup
+                                  value={position}
+                                  onValueChange={setPosition}
                                 >
-                                  pending
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("accepted")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  accepted
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("completed")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  completed
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    toggleMenu("canceled", result?._id)
-                                  }
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  canceled
-                                </button>
-                              </div>
-                            )}
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeStatus("pending", result?._id)
+                                    }
+                                    value="pending"
+                                  >
+                                    pending
+                                  </DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeStatus(
+                                        "accepted",
+                                        result?._id
+                                      )
+                                    }
+                                    value="accepted"
+                                  >
+                                    accepted
+                                  </DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeStatus(
+                                        "completed",
+                                        result?._id
+                                      )
+                                    }
+                                    value="completed"
+                                  >
+                                    completed
+                                  </DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeStatus(
+                                        "canceled",
+                                        result?._id
+                                      )
+                                    }
+                                    value="canceled"
+                                  >
+                                    canceled
+                                  </DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </td>
                         </tr>
                       </>

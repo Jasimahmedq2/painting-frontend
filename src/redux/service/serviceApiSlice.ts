@@ -143,7 +143,7 @@ const serviceApi = api.injectEndpoints({
     }),
     changeStatus: builder.mutation({
       query: (data) => ({
-        url: `/order/update-status/${data?.userId}`,
+        url: `/order/update-status/${data?.orderId}`,
         method: "PUT",
         headers: {
           authorization: `${data?.token}`,
