@@ -63,12 +63,24 @@ const authApi = api.injectEndpoints({
     changeRole: builder.mutation({
       query(data) {
         return {
-          url: `/user/role/:${data?.userId}`,
+          url: `/user/role/${data?.userId}`,
           method: "PUT",
           headers: {
             authorization: `${data?.token}`,
           },
           body: { role: data?.role },
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
+    deleteUser: builder.mutation({
+      query(data) {
+        return {
+          url: `/user/delete/${data?.userId}`,
+          method: "DELETE",
+          headers: {
+            authorization: `${data?.token}`,
+          },
         };
       },
       invalidatesTags: ["user"],
@@ -97,6 +109,18 @@ const authApi = api.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+    subsCribeNewsLetter: builder.mutation({
+      query(data) {
+        return {
+          url: `/newsLetter/subscribe`,
+          method: "POST",
+          headers: {
+            authorization: `${data?.token}`,
+          },
+          body: data?.email,
+        };
+      },
+    }),
   }),
 });
 
@@ -110,4 +134,6 @@ export const {
   useGetUserOrderQuery,
   useUserProfileQuery,
   useProfileUpdateMutation,
+  useDeleteUserMutation,
+  useSubsCribeNewsLetterMutation,
 } = authApi;

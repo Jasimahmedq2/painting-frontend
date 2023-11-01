@@ -27,11 +27,7 @@ const AddServices = () => {
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<IAddService>({
-    defaultValues: {
-      name: "jasim ahmed"
-    }
-  });
+  } = useForm<IAddService>();
 
   const [AddService, { isLoading, isError, isSuccess, error }] =
     useAddServiceMutation();
@@ -58,10 +54,12 @@ const AddServices = () => {
         const product = {
           info: {
             ...otherInfo,
-            image: result.data.url,
+            image: result?.data?.url,
           },
           token: token,
         };
+
+        console.log({ product, result });
 
         AddService(product);
         setLoading(false);

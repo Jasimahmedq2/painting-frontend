@@ -1,5 +1,16 @@
 "use client";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/UI/alert-dialog";
+import {
   useGetAllServiceQuery,
   useRemoveServiceMutation,
 } from "@/redux/service/serviceApiSlice";
@@ -17,14 +28,6 @@ const ManageService = () => {
   const [removeService, { isLoading, isSuccess, isError }] =
     useRemoveServiceMutation();
 
-  const handleRemove = async (id: string) => {
-    const removeInfo = {
-      token,
-      id,
-    };
-    await removeService(removeInfo);
-  };
-
   useEffect(() => {
     if (isSuccess) {
       message.success("successfully deleted a service");
@@ -36,6 +39,14 @@ const ManageService = () => {
       message.error("something went wrong");
     }
   }, [isLoading, isError, isSuccess]);
+
+  const handleDeleteService = async (id: string) => {
+    const removeInfo = {
+      id,
+      token,
+    };
+    await removeService(removeInfo);
+  };
 
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
@@ -78,12 +89,37 @@ const ManageService = () => {
                   </button>
                 </Link>
 
-                <button
+                <AlertDialog>
+                  <AlertDialogTrigger className="bg-red-400 border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer uppercase">
+                    {" "}
+                    delete
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure? to delete the service?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        serviceName: {service?.name}
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => handleDeleteService(service?._id)}
+                      >
+                        Delete
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
+                {/* <button
                   onClick={() => handleRemove(service?._id)}
-                  className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  className="bg-red-400 border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                 >
                   delete
-                </button>
+                </button> */}
               </div>
             </div>
           );

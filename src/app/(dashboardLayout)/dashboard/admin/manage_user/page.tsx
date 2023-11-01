@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { message } from "antd";
 import {
   useChangeRoleMutation,
+  useDeleteUserMutation,
   useGetAllUserQuery,
 } from "@/redux/auth/authApiSlice";
 import {
@@ -24,6 +25,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/UI/dropdown-menu";
 import { Button } from "@/components/UI/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/UI/alert-dialog";
 
 const ManageUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,6 +46,11 @@ const ManageUser = () => {
     changeRole,
     { isLoading: CIsLoading, isSuccess: CIsSuccess, isError: CIsError },
   ] = useChangeRoleMutation();
+
+  const [
+    deleteUser,
+    { isLoading: DLoading, isSuccess: DSuccess, isError: DError },
+  ] = useDeleteUserMutation();
 
   useEffect(() => {
     if (isLoading) {
@@ -48,28 +65,40 @@ const ManageUser = () => {
   }, [isSuccess, data, searchTerm, isLoading]);
 
   useEffect(() => {
-    if (CIsLoading) {
+    if (CIsLoading || DLoading) {
       message.loading("loading...");
     }
     if (CIsSuccess) {
       message.success("role changed");
     }
-    if (CIsError) {
+    if (DSuccess) {
+      message.success("user deleted succefully");
+    }
+    if (CIsError || DError) {
       message.error("something went wrong");
     }
-  }, [CIsLoading, CIsSuccess, CIsError]);
+  }, [CIsLoading, CIsSuccess, CIsError, DLoading, DSuccess, DError]);
 
   if (isLoading) {
     return <Loading />;
   }
-
+  // this function changed user role by user id
   const handleChangeUserRole = async (role: string, userId: string) => {
-    const userInfo = {
+    const orderInfo = {
       token,
       role,
       userId,
     };
-    await changeRole(userInfo);
+    await changeRole(orderInfo);
+  };
+
+  // delete user by user Id
+  const handleDeleteUser = async (userId: string) => {
+    const userInfo = {
+      token,
+      userId,
+    };
+    await deleteUser(userInfo);
   };
 
   const handleSearch = (event: any) => {
@@ -126,14 +155,41 @@ const ManageUser = () => {
                           <td className=" px-4 py-4">{result?.email}</td>
                           <td className=" px-4 py-4">{result?.phoneNo}</td>
                           <td className="px-4 py-4">
-                            <button className="bg-red-400 text-white px-4 py-2 rounded">
-                              delete
-                            </button>
+                            <AlertDialog>
+                              <AlertDialogTrigger className="bg-red-400  text-white px-6 py-2 rounded cursor-pointer uppercase">
+                                {" "}
+                                delete
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Are you absolutely sure? to delete the user?
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    userName: {result?.name}; {"  "}
+                                    userEmail: {result?.email}
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() =>
+                                      handleDeleteUser(result?._id)
+                                    }
+                                  >
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </td>
                           <td>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
-                                <Button variant="outline">
+                                <Button
+                                  className="cursor-pointer uppercase"
+                                  variant="outline"
+                                >
                                   {result?.role}
                                 </Button>
                               </DropdownMenuTrigger>

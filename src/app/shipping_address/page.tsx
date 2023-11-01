@@ -59,10 +59,29 @@ const ShippingAddress = () => {
       router.push("/order_details");
     }
 
+    if (SIsSuccess) {
+      reset({
+        street: shippingData?.data?.street,
+        city: shippingData?.data?.city,
+        phoneNo: shippingData?.data?.phoneNo,
+        country: shippingData?.data?.country,
+        postalCode: shippingData?.data?.postalCode,
+      });
+    }
+
     if (isError) {
       message.error("something went wrong");
     }
-  }, [isLoading, isSuccess, isError, SIsSuccess, address, router]);
+  }, [
+    isLoading,
+    isSuccess,
+    isError,
+    SIsSuccess,
+    address,
+    router,
+    shippingData,
+    reset,
+  ]);
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
