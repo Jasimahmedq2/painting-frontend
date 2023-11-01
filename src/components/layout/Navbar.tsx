@@ -26,21 +26,6 @@ export const NavBar = () => {
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 sticky top-0 bg-white shadow z-10">
       <div className="relative flex items-center justify-between">
         <div className="inline-flex items-center">
-          <svg
-            className="w-8 text-deep-purple-accent-400"
-            viewBox="0 0 24 24"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeMiterlimit="10"
-            stroke="currentColor"
-            fill="none"
-          >
-            <rect x="3" y="1" width="7" height="12" />
-            <rect x="3" y="17" width="7" height="6" />
-            <rect x="14" y="1" width="7" height="6" />
-            <rect x="14" y="11" width="7" height="12" />
-          </svg>
           <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
             PaintHUt
           </span>
@@ -49,7 +34,7 @@ export const NavBar = () => {
           <div>
             <Link
               href="/home"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
             >
               home
             </Link>
@@ -57,14 +42,14 @@ export const NavBar = () => {
           <div>
             <Link
               href="/services"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
             >
               services
             </Link>
           </div>
           {isLoggedIn() && (
-            <Link href="/dashboard">
-              <div className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]">
+            <Link className="no-underline" href="/dashboard">
+              <div className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]  ">
                 Dashboard
               </div>
             </Link>

@@ -9,19 +9,24 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Dropdown, message } from "antd";
+import { message } from "antd";
 import {
   useChangeRoleMutation,
   useGetAllUserQuery,
 } from "@/redux/auth/authApiSlice";
-import { set } from "react-hook-form";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/UI/dropdown-menu";
+import { Button } from "@/components/UI/button";
 
 const ManageUser = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [userId, setUserId] = useState<string>("");
-
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useRouter();
   const token = getFromLocalStorage(authKey);
   const [searchResults, setSearchResults] = useState([]);
   const { data, isLoading, isSuccess } = useGetAllUserQuery(token);
@@ -58,7 +63,7 @@ const ManageUser = () => {
     return <Loading />;
   }
 
-  const toggleMenu = async (role: string) => {
+  const handleChangeUserRole = async (role: string, userId: string) => {
     const userInfo = {
       token,
       role,
@@ -67,17 +72,13 @@ const ManageUser = () => {
     await changeRole(userInfo);
   };
 
-  const openMenu = (id: string) => {
-    setShowMenu(!showMenu);
-    setUserId(id);
-  };
   const handleSearch = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
   return (
     <div>
-      <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3 sm:min-h-screen">
+      <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
             <div className="text-lg font-bold">manage user</div>
@@ -130,41 +131,49 @@ const ManageUser = () => {
                             </button>
                           </td>
                           <td>
-                            <button
-                              className="px-4 py-2 cursor-pointer relative border border-1 rounded bg-lime-300"
-                              onClick={() => openMenu(result?._id)}
-                            >
-                              {result?.role}
-                            </button>
-
-                            {showMenu && (
-                              <div className="absolute right-0 top-0 mt-10 w-48 bg-white shadow-lg rounded-lg p-2 z-20">
-                                <button
-                                  onClick={() =>
-                                    toggleMenu("admin")
-                                  }
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  admin
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    toggleMenu("customer")
-                                  }
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  customer
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    toggleMenu("painter")
-                                  }
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  painter
-                                </button>
-                              </div>
-                            )}
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline">
+                                  {result?.role}
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>user role</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuRadioGroup>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeUserRole(
+                                        "customer",
+                                        result?._id
+                                      )
+                                    }
+                                    value="customer"
+                                  >
+                                    customer
+                                  </DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeUserRole(
+                                        "painter",
+                                        result?._id
+                                      )
+                                    }
+                                    value="painter"
+                                  >
+                                    painter
+                                  </DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      handleChangeUserRole("admin", result?._id)
+                                    }
+                                    value="admin"
+                                  >
+                                    admin
+                                  </DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </td>
                         </tr>
                       </>
