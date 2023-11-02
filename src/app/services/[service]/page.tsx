@@ -15,6 +15,7 @@ import { authKey } from "@/utilites/authkey";
 import { message } from "antd";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
+import ServiceCard from "@/components/UI/serviceCard";
 
 const upcomingServices = [
   {
@@ -90,8 +91,14 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   return (
     <div className="bg-white p-2 shadow sm:px-12 sm:py-12 sm:min-h-screen">
       <div className="sm:flex justify-between items-center ">
-        <div>
-          <Image width={500} height={500} alt="image" src={data?.data?.image} />
+        <div className="pr-4">
+          <Image
+            className="rounded"
+            width={500}
+            height={500}
+            alt="image"
+            src={data?.data?.image}
+          />
         </div>
         <div className="space-y-2 sm:w-1/2">
           <div className="flex justify-between items-center">
@@ -106,15 +113,15 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
               Booking
             </button>
           </div>
-          <h2 className="  text-gray-900">painter name</h2>
+          <h2 className="  text-gray-900">{data?.data?.painter?.name}</h2>
 
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-gray-800">
               ${data?.data?.price}
             </h2>
-            <p className="font-md">
+            {/* <p className="font-md">
               4 <StarFilled />
-            </p>
+            </p> */}
           </div>
           <p className="text-gray-700">{data?.data?.description}</p>
         </div>
@@ -123,47 +130,7 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
         <h2 className="text-xl font-bold text-black my-4">Related services</h2>
         <div className=" grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CData?.data?.map((service: any) => {
-            return (
-              <div
-                key={service?._id}
-                className="max-w-sm rounded overflow-hidden shadow-lg"
-              >
-                <Image
-                  width={400}
-                  height={200}
-                  src={service?.image}
-                  alt="Sunset in the mountains"
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">{service?.name}</div>
-                  <p className="text-gray-700 text-base">
-                    {service.description.length > 30
-                      ? service.description.substring(0, 30) + "..."
-                      : service.description}
-                  </p>
-                </div>
-                <div className=" px-6 flex justify-between items-center">
-                  <h2 className="text-xl font-bold text-gray-800">$150</h2>
-                  <p className="font-md">
-                    4 <StarFilled />
-                  </p>
-                </div>
-                <div className="px-6 flex items-center justify-between pt-4 pb-2">
-                  <Link href={`/services/${service?._id}`}>
-                    <button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-                      details
-                    </button>
-                  </Link>
-
-                  <button
-                    onClick={() => handleAddService(service?._id)}
-                    className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    booking
-                  </button>
-                </div>
-              </div>
-            );
+            return <ServiceCard key={service?._id} service={service} />;
           })}
         </div>
       </div>

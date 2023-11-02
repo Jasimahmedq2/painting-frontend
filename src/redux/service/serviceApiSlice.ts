@@ -72,11 +72,13 @@ const serviceApi = api.injectEndpoints({
       providesTags: ["service"],
     }),
     getAllService: builder.query({
-      query: (token) => ({
-        url: `/service/get-services`,
+      query: (data) => ({
+        url: `/service/get-services/test`,
         headers: {
-          authorization: `${token}`,
+          authorization: `${data?.token}`,
         },
+        method: "GET",
+        params: data?.param,
       }),
       providesTags: ["service"],
     }),
