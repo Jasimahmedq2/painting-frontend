@@ -14,11 +14,9 @@ const serviceApi = api.injectEndpoints({
       invalidatesTags: ["service"],
     }),
     getCategory: builder.query({
-      query: (token) => ({
+      query: () => ({
         url: `/category/get-categories`,
-        headers: {
-          authorization: `${token}`,
-        },
+
       }),
       providesTags: ["service"],
     }),

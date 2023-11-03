@@ -2,6 +2,7 @@
 import {
   useGetPainterUserQuery,
   useProfileUpdateMutation,
+  useUserProfileQuery,
 } from "@/redux/auth/authApiSlice";
 import {
   useAddServiceMutation,
@@ -21,7 +22,7 @@ type IAddService = {
 };
 
 const ProfileUpdate = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const token = getFromLocalStorage(authKey);
   const {
@@ -30,6 +31,8 @@ const ProfileUpdate = () => {
     reset,
     handleSubmit,
   } = useForm<IAddService>();
+
+  const { data, isSuccess: DisSuccess } = useUserProfileQuery(token);
 
   const [profileUpdate, { isLoading, isError, isSuccess, error }] =
     useProfileUpdateMutation();
@@ -68,12 +71,22 @@ const ProfileUpdate = () => {
   useEffect(() => {
     if (isSuccess) {
       message.success("successfully updated profile");
-      router.push('/dashboard/user/profile')
+      router.push("/dashboard/user/profile");
     }
     if (isError) {
       message.error("something went wrong");
     }
   }, [isLoading, isSuccess, isError, router]);
+
+  useEffect(() => {
+    if (DisSuccess) {
+      reset({
+        name: data?.data?.name,
+        phoneNo: data?.data?.phoneNo,
+        image: data?.data?.image,
+      });
+    }
+  }, [DisSuccess, reset, data]);
 
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">

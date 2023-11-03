@@ -57,20 +57,21 @@ export const NavBar = () => {
 
           {isLoggedIn() ? (
             <div>
-              <div
+              <Link
+                href="login"
                 onClick={handleLogin}
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none cursor-pointer"
+                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none cursor-pointer no-underline"
                 aria-label="Sign up"
                 title="Sign up"
               >
                 LogOut
-              </div>
+              </Link>
             </div>
           ) : (
             <div>
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none"
+                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none no-underline"
                 aria-label="Sign up"
                 title="Sign up"
               >

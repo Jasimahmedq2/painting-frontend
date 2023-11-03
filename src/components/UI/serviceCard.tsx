@@ -1,17 +1,23 @@
 import { useAddToCartMutation } from "@/redux/service/serviceApiSlice";
+import { isLoggedIn } from "@/utilites/auth.service";
 import { authKey } from "@/utilites/authkey";
 import { getFromLocalStorage } from "@/utilites/local-storage";
 import { StarFilled } from "@ant-design/icons";
 import { message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ServiceCard = ({ service }: { service: any }) => {
+  const router = useRouter();
   const token = getFromLocalStorage(authKey);
   const [addToCart, { isLoading, isSuccess, isError }] = useAddToCartMutation();
 
   const handleAddService = async (id: string) => {
+    if (!isLoggedIn()) {
+      return router.push("/login");
+    }
     const serviceInfo = {
       token: token,
       info: {

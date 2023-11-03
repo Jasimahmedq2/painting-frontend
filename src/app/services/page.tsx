@@ -1,10 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import category1 from "../../assests/Mobile login-pana.svg";
 import { Descriptions, Input, message } from "antd";
 import { SearchOutlined, StarFilled } from "@ant-design/icons";
-import Link from "next/link";
 import {
   useAddToCartMutation,
   useGetAllServiceQuery,
@@ -95,7 +92,7 @@ const Services = ({ params }: { params: { category: string } }) => {
 
   const totalResults = data?.data?.totalResults;
 
-  const handleSearch = (e: { target: { value: SetStateAction<string>; }; }) => {
+  const handleSearch = (e: { target: { value: SetStateAction<string> } }) => {
     setSearch(e.target.value);
   };
 

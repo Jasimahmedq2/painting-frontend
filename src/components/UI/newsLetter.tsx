@@ -1,10 +1,12 @@
 "use client";
 import { useSubsCribeNewsLetterMutation } from "@/redux/auth/authApiSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { isLoggedIn } from "@/utilites/auth.service";
 import { authKey } from "@/utilites/authkey";
 import { getFromLocalStorage } from "@/utilites/local-storage";
 import { message } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +15,7 @@ type INewsLetter = {
 };
 
 const NewsLetter = () => {
+  const router = useRouter();
   const token = getFromLocalStorage(authKey);
   const {
     register,
@@ -25,6 +28,9 @@ const NewsLetter = () => {
     useSubsCribeNewsLetterMutation();
 
   const onsubmit = async (data: INewsLetter) => {
+    if (!isLoggedIn()) {
+      return router.push("/login");
+    }
     const info = {
       token,
       email: data?.email,

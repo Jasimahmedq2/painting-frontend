@@ -16,39 +16,13 @@ import { message } from "antd";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
 import ServiceCard from "@/components/UI/serviceCard";
+import { isLoggedIn } from "@/utilites/auth.service";
+import { useRouter } from "next/navigation";
 
-const upcomingServices = [
-  {
-    _id: 1,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: cartImage,
-  },
-  {
-    _id: 2,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: cartImage,
-  },
-  {
-    _id: 3,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: cartImage,
-  },
-  {
-    _id: 4,
-    description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
-    image: cartImage,
-  },
-];
+
 
 const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
+  const router = useRouter();
   const token = getFromLocalStorage(authKey);
   const { data, isLoading: SIsloading } = useGetSingleServiceQuery({
     id: params.service,
@@ -62,6 +36,9 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   const [addToCart, { isLoading, isSuccess, isError }] = useAddToCartMutation();
 
   const handleAddService = async (id: string) => {
+    if (!isLoggedIn()) {
+      return router.push("/login");
+    }
     const serviceInfo = {
       token: token,
       info: {

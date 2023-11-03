@@ -13,7 +13,7 @@ const ProfilePage = () => {
     return <Loading />;
   }
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-teal-400 min-h-screen flex items-center justify-center">
+    <div className=" bg-gray-200 min-h-screen flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
         <div className="relative flex items-center justify-center">
           <div className="mx-auto">
@@ -30,10 +30,6 @@ const ProfilePage = () => {
           {data?.data?.name}
         </h1>
         <p className="text-gray-500 text-center">{data?.data?.email}</p>
-        <p className="text-gray-600 mt-4 text-center">
-          A creative web developer passionate about crafting unique digital
-          experiences.
-        </p>
         <div className="flex justify-center mt-6">
           <Link href="/dashboard/user/profile/edit">
             <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">

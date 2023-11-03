@@ -83,8 +83,7 @@ const availableCategory = [
 
 const ServiceCategory = () => {
   const [show, setShow] = useState<number>(8);
-  const token = getFromLocalStorage(authKey);
-  const { data, isLoading, isSuccess } = useGetCategoryQuery(token);
+  const { data, isLoading, isSuccess } = useGetCategoryQuery(undefined);
 
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">

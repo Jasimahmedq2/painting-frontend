@@ -136,9 +136,7 @@ const ManageOrder = () => {
                                   pending
                                 </button>
                                 <button
-                                  onClick={() =>
-                                    toggleMenu("canceled")
-                                  }
+                                  onClick={() => toggleMenu("canceled")}
                                   className="w-full py-2 hover:bg-gray-200 text-left"
                                 >
                                   canceled
