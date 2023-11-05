@@ -59,7 +59,6 @@ const AddServices = () => {
           token: token,
         };
 
-        console.log({ product, result });
 
         AddService(product);
         setLoading(false);

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import category1 from "../../../public/banner1.jpg";
 import category2 from "../../assests/pexels-karl-solano-2883049.jpg";
-import category3 from "../../assests/pexels-pixabay-262034.jpg"
+import category3 from "../../assests/pexels-pixabay-262034.jpg";
 import category4 from "../../assests/pexels-pavel-danilyuk-6925357.jpg";
 import { useState } from "react";
 
@@ -10,29 +10,29 @@ const upcomingServices = [
   {
     _id: 1,
     description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
+      "Transform your space with the exquisite touch of Brushed Elegance Painting. Our skilled artisans create masterpieces on your walls, adding a touch of sophistication to your home or office. From classic to contemporary, we offer a wide range of painting styles and techniques to bring your vision to life.",
+    name: "Brushed Elegance Painting",
     image: category1,
   },
   {
     _id: 2,
     description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
+      "At ColorCrafters Pro, we're passionate about color and craftsmanship. Our team of experienced painters takes pride in turning your ideas into reality, enhancing your living spaces with precision and creativity. We specialize in custom color schemes, murals, and faux finishes to make your surroundings uniquely beautiful.",
+    name: "ColorCrafters Pro",
     image: category2,
   },
   {
     _id: 3,
     description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
+      "Canvas & Hue Creations is your go-to destination for creating art on walls. Our talented artists are dedicated to adding personality and vibrancy to your environment. Whether you're looking for a serene oasis or an explosion of colors, we'll work with you to make your dream space a reality.",
+    name: "Canvas & Hue Creations",
     image: category3,
   },
   {
     _id: 4,
     description:
-      " Painted between 1503 and 1517 Da Vinci s alluring portrait  been dogged by two questions since the day it was made Who s the subject and why is she smiling",
-    name: "Mona Lisa",
+      "Canvas & Hue Creations is your go-to destination for creating art on walls. Our talented artists are dedicated to adding personality and vibrancy to your environment. Whether you're looking for a serene oasis or an explosion of colors, we'll work with you to make your dream space a reality",
+    name: "Vivid Strokes Paintworks",
     image: category4,
   },
 ];
@@ -108,10 +108,11 @@ const UpComingServices = () => {
                     />
 
                     <div className="p-5">
-                      <p className="mb-2 font-bold">Hockey Sports</p>
+                      <p className="mb-2 font-bold">{service?.name}</p>
                       <p className="text-sm leading-5 text-gray-900">
-                        A business big enough that it could be listed on the
-                        NASDAQ goes belly up.
+                        {service?.description.length > 100
+                          ? service?.description.substring(0, 100) + "..."
+                          : service?.description}
                       </p>
                     </div>
                     {/* <div className="flex justify-center">

@@ -81,7 +81,6 @@ const ManageService = () => {
     current: number,
     pageSize: number
   ) => {
-    console.log(current, pageSize);
     setPage(current);
     setSize(pageSize);
   };

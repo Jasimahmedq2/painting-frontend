@@ -67,13 +67,11 @@ const ManageBooking = () => {
       status,
       orderId,
     };
-    console.log("statusInfo:", statusInfo);
     await changeStatus(statusInfo);
   };
 
   // const handleSetOrderId = (id: string) => {
   //   setOrderId(id);
-  //   console.log({ id });
   // };
 
   const handleSearch = (event: any) => {
@@ -120,7 +118,6 @@ const ManageBooking = () => {
                 ) : (
                   searchResults.length > 0 &&
                   searchResults?.map((result: any) => {
-                    console.log({ result });
                     return (
                       <>
                         <tr

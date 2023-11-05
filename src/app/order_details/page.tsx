@@ -41,7 +41,6 @@ const OrderPage = () => {
     quantity: obj.quantity,
     painting: obj.service._id,
   }));
-  console.log("carts", itemsInfo);
 
   const handlePlaceOrder = async () => {
     const orderInfo = {

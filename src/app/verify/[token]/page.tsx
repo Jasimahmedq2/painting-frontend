@@ -11,7 +11,6 @@ const VerifyEmail = ({ params }: { params: { token: string } }) => {
 
   const [verifyEmail, { isSuccess, isLoading, error, isError }] =
     useVerifyEmailMutation();
-  console.log({ error });
   const handleVerifyEmail = () => {
     verifyEmail(token);
   };

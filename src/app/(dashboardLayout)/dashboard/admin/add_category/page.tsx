@@ -42,7 +42,6 @@ const AddCategory = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log("image url", result.data.url);
         const { image, ...otherInfo } = data;
 
         const product = {
@@ -52,7 +51,6 @@ const AddCategory = () => {
           },
           token: token,
         };
-        console.log(product);
         addCategory(product);
         reset();
         setLoading(false);

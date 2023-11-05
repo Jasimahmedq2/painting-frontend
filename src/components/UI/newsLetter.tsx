@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import newsLetter from "../../assests/newsLetter.jpg";
 
 type INewsLetter = {
   email: string;
@@ -58,10 +59,11 @@ const NewsLetter = () => {
       <Image
         width={500}
         height={500}
-        src="https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+        src={newsLetter}
         className="absolute inset-0 object-cover w-full h-full"
-        alt=""
+        alt="newsLetter"
       />
+      
       <div className="relative bg-opacity-75 bg-[#7748ec]">
         <svg
           className="absolute inset-x-0 bottom-0 text-white"

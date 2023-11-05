@@ -78,7 +78,6 @@ const Services = ({ params }: { params: { category: string } }) => {
     current: number,
     pageSize: number
   ) => {
-    console.log(current, pageSize);
     setPage(current);
     setSize(pageSize);
   };

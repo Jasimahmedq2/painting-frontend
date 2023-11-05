@@ -21,7 +21,6 @@ const ManageOrder = () => {
     changeStatus,
     { isLoading: CIsLoading, isSuccess: CIsSuccess, isError: CIsError },
   ] = useChangeStatusMutation();
-  console.log(data?.data, "datadffdf");
 
   useEffect(() => {
     if (isLoading) {
@@ -109,7 +108,6 @@ const ManageOrder = () => {
                 ) : (
                   searchResults?.length > 0 &&
                   searchResults?.map((result: any) => {
-                    console.log({ result });
                     return (
                       <>
                         <tr

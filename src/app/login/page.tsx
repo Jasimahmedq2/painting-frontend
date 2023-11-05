@@ -24,7 +24,6 @@ const Login = () => {
 
   const [loginUser, { data: LData, isLoading, isSuccess, isError, error }] =
     useLoginUserMutation();
-  console.log(LData?.data?.token);
 
   const onSubmit: SubmitHandler<ILoginInput> = async (data) => {
     await loginUser(data);
