@@ -55,13 +55,12 @@ const SignUp = () => {
           <div className="flex flex-col items-center justify-between xl:flex-row">
             <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-                The quick, brown fox <br className="hidden md:block" />
-                jumps over a <span className="text-[#1eebae]">lazy dog</span>
+                Embark on a new adventure with us!
               </h2>
               <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudan, totam rem aperiam, eaque ipsa
-                quae.
+                Create your account and join our community of enthusiasts. It
+                only takes a few moments to sign up, and the possibilities are
+                endless. Let{"'"}s start this exciting journey together!
               </p>
             </div>
             <div className="w-full max-w-xl xl:px-8 xl:w-5/12">

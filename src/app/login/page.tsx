@@ -45,12 +45,13 @@ const Login = () => {
         <div className="flex flex-col items-center justify-between xl:flex-row">
           <div className="w-full max-w-xl mb-12 xl:pr-16 xl:mb-0 xl:w-7/12">
             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-              The quick, brown fox <br className="hidden md:block" />
-              jumps over a <span className="text-[#1eebae]">lazy dog</span>
+              
+              Ready to dive back into the world of our website?{" "}
+              <span className="text-[#1eebae]">Login to continue...</span>
             </h2>
             <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
+              Simply enter your credentials below and unlock a world of
+              personalized experiences. Your journey continues here!
             </p>
           </div>
           <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
@@ -79,7 +80,7 @@ const Login = () => {
               </svg>
               <div className="relative bg-white rounded shadow-2xl p-7 sm:p-10">
                 <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
-                  Sign up for updates
+                  Login
                 </h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-1 sm:mb-2">
