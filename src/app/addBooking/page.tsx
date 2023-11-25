@@ -6,11 +6,16 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { authKey } from "@/utilites/authkey";
 import Loading from "../loading";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { isLoggedIn } from "@/utilites/auth.service";
 
 const AddBooking = () => {
+  const router = useRouter();
   const token = getFromLocalStorage(authKey);
   const { data, isLoading, isError, isSuccess } = useGetCartQuery(token);
-
+  if (!isLoggedIn()) {
+    return router.push("/login");
+  }
   if (isLoading) {
     return <Loading />;
   }

@@ -20,7 +20,12 @@ const Login = () => {
     reset,
     formState: { errors },
     handleSubmit,
-  } = useForm<ILoginInput>();
+  } = useForm<ILoginInput>({
+    defaultValues: {
+      email: "jasim.dev48@gmail.com",
+      password: "123456",
+    },
+  });
 
   const [loginUser, { data: LData, isLoading, isSuccess, isError, error }] =
     useLoginUserMutation();
@@ -45,7 +50,6 @@ const Login = () => {
         <div className="flex flex-col items-center justify-between xl:flex-row">
           <div className="w-full max-w-xl mb-12 xl:pr-16 xl:mb-0 xl:w-7/12">
             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-              
               Ready to dive back into the world of our website?{" "}
               <span className="text-[#1eebae]">Login to continue...</span>
             </h2>
@@ -116,7 +120,7 @@ const Login = () => {
                         required: "password is required",
                       })}
                       aria-invalid={errors.password ? "true" : "false"}
-                      type="text"
+                      type="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                     />
                     {errors.password && (

@@ -49,7 +49,7 @@ export const sidebarItems = (role: string) => {
       key: "manage-order",
       children: [
         {
-          label: <Link href="/dashboard/user/order">all services</Link>,
+          label: <Link href="/dashboard/user/manage_order">all services</Link>,
           key: "services",
         },
       ],

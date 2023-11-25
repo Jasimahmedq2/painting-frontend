@@ -74,7 +74,7 @@ const SignUp = () => {
                       htmlFor="firstName"
                       className="inline-block mb-1 font-medium"
                     >
-                      First name
+                      Name
                     </label>
                     <input
                       {...register("name", { required: true })}
@@ -84,8 +84,29 @@ const SignUp = () => {
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-[#f0f0f0] focus:outline-none focus:shadow-outline"
                     />
                     {errors.name?.type === "required" && (
-                      <p className="text-red-400 text-sm">
-                        First name is required
+                      <p className="text-red-400 text-sm">name is required</p>
+                    )}
+                  </div>
+
+                  <div className="mb-1 sm:mb-2">
+                    <label
+                      htmlFor="lastName"
+                      className="inline-block mb-1 font-medium"
+                    >
+                      PhoneNO
+                    </label>
+                    <input
+                      {...register("phoneNo", {
+                        required: "phoneNo is required",
+                      })}
+                      aria-invalid={errors.phoneNo ? "true" : "false"}
+                      placeholder="Phone No"
+                      type="password"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-[#f0f0f0] focus:outline-none focus:shadow-outline"
+                    />
+                    {errors.phoneNo && (
+                      <p className="text-sm text-red-400">
+                        {errors.phoneNo.message}
                       </p>
                     )}
                   </div>
@@ -117,7 +138,7 @@ const SignUp = () => {
                       htmlFor="lastName"
                       className="inline-block mb-1 font-medium"
                     >
-                      password
+                      Password
                     </label>
                     <input
                       {...register("password", {
@@ -134,33 +155,10 @@ const SignUp = () => {
                       </p>
                     )}
                   </div>
-
-                  <div className="mb-1 sm:mb-2">
-                    <label
-                      htmlFor="lastName"
-                      className="inline-block mb-1 font-medium"
-                    >
-                      phoneNO
-                    </label>
-                    <input
-                      {...register("phoneNo", {
-                        required: "email is required",
-                      })}
-                      aria-invalid={errors.phoneNo ? "true" : "false"}
-                      placeholder="Phone No"
-                      type="password"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-[#f0f0f0] focus:outline-none focus:shadow-outline"
-                    />
-                    {errors.phoneNo && (
-                      <p className="text-sm text-red-400">
-                        {errors.phoneNo.message}
-                      </p>
-                    )}
-                  </div>
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#661fff] focus:shadow-outline focus:outline-none"
+                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#661fff] focus:shadow-outline focus:outline-none hover:cursor-pointer"
                     >
                       SignUp
                     </button>

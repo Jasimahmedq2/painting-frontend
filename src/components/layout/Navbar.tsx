@@ -79,19 +79,21 @@ export const NavBar = () => {
               </Link>
             </div>
           )}
-          <div>
-            <Link
-              href="/addBooking"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-            >
-              <Badge count={cartLength}>
-                <ShoppingCartOutlined
-                  type="message"
-                  style={{ fontSize: "26px", color: "#08c" }}
-                />
-              </Badge>
-            </Link>
-          </div>
+          {isLoggedIn() && (
+            <div>
+              <Link
+                href="/addBooking"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+              >
+                <Badge count={cartLength}>
+                  <ShoppingCartOutlined
+                    type="message"
+                    style={{ fontSize: "26px", color: "#08c" }}
+                  />
+                </Badge>
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="lg:hidden">
