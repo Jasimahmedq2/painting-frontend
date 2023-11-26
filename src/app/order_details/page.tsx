@@ -11,7 +11,7 @@ import { message } from "antd";
 import { useRouter } from "next/navigation";
 
 const OrderPage = () => {
-    const router = useRouter()
+  const router = useRouter();
   const token = getFromLocalStorage(authKey);
   const { data, isLoading, isError, isSuccess } = useGetCartQuery(token);
   const [
@@ -22,7 +22,7 @@ const OrderPage = () => {
   useEffect(() => {
     if (OIsSuccess) {
       message.success("successfully place an order");
-      router.push('/dashboard')
+      router.push("/dashboard/user/manage_order");
     }
     if (OIsLoading) {
       message.loading("loading...");

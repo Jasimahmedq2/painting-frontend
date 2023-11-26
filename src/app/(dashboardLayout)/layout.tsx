@@ -34,6 +34,7 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Layout hasSider>
       <DashboardSidebar />
+   
       <DashboardContent>{children}</DashboardContent>
     </Layout>
   );

@@ -57,6 +57,7 @@ export const sidebarItems = (role: string) => {
   ];
 
   const commonAdminSidebarItems: MenuProps["items"] = [
+    ...defaultSidebarItems,
     {
       label: <Link href={"/dashboard/admin/manage_user"}>manage user</Link>,
       key: "manage_user",

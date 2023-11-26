@@ -1,6 +1,7 @@
 "use client";
 
 import Loading from "@/app/loading";
+import PBreadCrumb from "@/components/UI/PBreadCrumb";
 import ManageServiceCard from "@/components/UI/manageServiceCard";
 import { useDebounced } from "@/redux/hooks";
 import { useGetAllServiceQuery } from "@/redux/service/serviceApiSlice";
@@ -102,71 +103,82 @@ const ManageService = () => {
   }
 
   return (
-    <div className=" sm:min-h-screen py-8 sm:py-12">
-      <div>
-        <h2 className=" p-12 text-2xl font-bold sm:text-5xl">Services</h2>
-      </div>
-      <div>
-        <Row className="sm:pl-12 pl-2">
-          <Col span={12}>
-            <Slider
-              min={50}
-              max={10000}
-              onChange={handlePriceSlider}
-              value={typeof minPrice === "number" ? minPrice : 0}
+    <>
+      <PBreadCrumb
+        items={[
+          {
+            label: "dashboard",
+            link: "/dashboard/user/profile",
+          },
+        ]}
+      />
+
+      <div className=" sm:min-h-screen py-8 sm:py-12">
+        <div>
+          <h2 className=" p-12 text-2xl font-bold sm:text-5xl">Services</h2>
+        </div>
+        <div>
+          <Row className="sm:pl-12 pl-2">
+            <Col span={12}>
+              <Slider
+                min={50}
+                max={10000}
+                onChange={handlePriceSlider}
+                value={typeof minPrice === "number" ? minPrice : 0}
+              />
+            </Col>
+            <Col span={4}>
+              <InputNumber
+                min={50}
+                max={10000}
+                style={{ margin: "0 16px" }}
+                value={minPrice}
+                onChange={handlePriceSlider}
+              />
+            </Col>
+          </Row>
+          <div className="flex justify-between items-center sm:pl-12 sm:pr-12 pt-4 pl-2 pr-2  space-x-2">
+            <Input
+              onChange={handleSearch}
+              style={{
+                width: "400px",
+              }}
+              size="large"
+              placeholder="search services"
+              prefix={<SearchOutlined />}
             />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={50}
-              max={10000}
-              style={{ margin: "0 16px" }}
-              value={minPrice}
-              onChange={handlePriceSlider}
-            />
-          </Col>
-        </Row>
-        <div className="flex justify-between items-center sm:pl-12 sm:pr-12 pt-4 pl-2 pr-2  space-x-2">
-          <Input
-            onChange={handleSearch}
-            style={{
-              width: "400px",
-            }}
-            size="large"
-            placeholder="search services"
-            prefix={<SearchOutlined />}
-          />
-          <div className="sm:flex sm:space-x-2 sm:space-y-0 space-y-2">
-            <Select
-              defaultValue="price"
-              style={{ width: 200 }}
-              onChange={handleChangeSortBy}
-              options={sortByOptions}
-            />
-            <Select
-              defaultValue="asc"
-              style={{ width: 200 }}
-              onChange={handleChangeSortOrder}
-              options={sortOrderOptions}
-            />
+            <div className="sm:flex sm:space-x-2 sm:space-y-0 space-y-2">
+              <Select
+                defaultValue="price"
+                style={{ width: 200 }}
+                onChange={handleChangeSortBy}
+                options={sortByOptions}
+              />
+              <Select
+                defaultValue="asc"
+                style={{ width: 200 }}
+                onChange={handleChangeSortOrder}
+                options={sortOrderOptions}
+              />
+            </div>
           </div>
         </div>
+        <div className="p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {data?.data?.results?.map((service: any) => {
+            return <ManageServiceCard key={service?._id} service={service} />;
+          })}
+        </div>
+        <div className="w-1/2 mx-auto pt-8">
+          <Pagination
+            showSizeChanger
+            onChange={onShowSizeChange}
+            defaultCurrent={1}
+            defaultPageSize={10}
+            total={totalResults}
+          />
+        </div>
       </div>
-      <div className="p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data?.data?.results?.map((service: any) => {
-          return <ManageServiceCard key={service?._id} service={service} />;
-        })}
-      </div>
-      <div className="w-1/2 mx-auto pt-8">
-        <Pagination
-          showSizeChanger
-          onChange={onShowSizeChange}
-          defaultCurrent={1}
-          defaultPageSize={10}
-          total={totalResults}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

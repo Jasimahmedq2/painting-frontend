@@ -132,7 +132,7 @@ const Login = () => {
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#661fff] "
+                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#661fff] hover:cursor-pointer "
                     >
                       Login
                     </button>

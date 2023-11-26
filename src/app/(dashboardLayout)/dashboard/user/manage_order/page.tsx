@@ -8,10 +8,17 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Dropdown, message } from "antd";
 import { useGetUserOrderQuery } from "@/redux/auth/authApiSlice";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/UI/dropdown-menu";
 
 const ManageOrder = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [userId, setUserId] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useRouter();
   const token = getFromLocalStorage(authKey);
@@ -50,20 +57,15 @@ const ManageOrder = () => {
     return <Loading />;
   }
 
-  const toggleMenu = async (status: string) => {
+  const HandleChangeStatus = async (status: string, userId: string) => {
     const statusInfo = {
       token,
       status,
       userId,
     };
     await changeStatus(statusInfo);
-    setShowMenu(!showMenu);
   };
 
-  const openMenu = (id: string) => {
-    setShowMenu(!showMenu);
-    setUserId(id);
-  };
   const handleSearch = (event: any) => {
     setSearchTerm(event.target.value);
   };
@@ -119,28 +121,33 @@ const ManageOrder = () => {
                           <td className=" px-4 py-4">{result?._id}</td>
                           <td className="px-4 py-4">{result?.total}</td>
                           <td>
-                            <button
-                              className="px-4 py-2 cursor-pointer relative border border-1 rounded bg-lime-300"
-                              onClick={() => openMenu(result?._id)}
-                            >
-                              {result?.status}
-                            </button>
-                            {showMenu && (
-                              <div className="absolute right-0 top-0 mt-10 w-48 bg-white shadow-lg rounded-lg p-2 z-20">
-                                <button
-                                  onClick={() => toggleMenu("pending")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  className="cursor-pointer uppercase"
+                                  variant="outline"
                                 >
-                                  pending
-                                </button>
-                                <button
-                                  onClick={() => toggleMenu("canceled")}
-                                  className="w-full py-2 hover:bg-gray-200 text-left"
-                                >
-                                  canceled
-                                </button>
-                              </div>
-                            )}
+                                  {result?.status}
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>status</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuRadioGroup>
+                                  <DropdownMenuRadioItem
+                                    onClick={() =>
+                                      HandleChangeStatus(
+                                        "canceled",
+                                        result?._id
+                                      )
+                                    }
+                                    value="canceled"
+                                  >
+                                    canceled
+                                  </DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </td>
                         </tr>
                       </>

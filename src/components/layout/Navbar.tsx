@@ -48,7 +48,7 @@ export const NavBar = () => {
             </Link>
           </div>
           {isLoggedIn() && (
-            <Link className="no-underline" href="/dashboard">
+            <Link className="no-underline" href="/dashboard/user/profile">
               <div className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]  ">
                 Dashboard
               </div>

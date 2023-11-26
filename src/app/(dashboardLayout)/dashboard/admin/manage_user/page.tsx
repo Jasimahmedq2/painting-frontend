@@ -36,6 +36,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/UI/alert-dialog";
+import PBreadCrumb from "@/components/UI/PBreadCrumb";
 
 const ManageUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -107,6 +108,14 @@ const ManageUser = () => {
 
   return (
     <div>
+      <PBreadCrumb
+        items={[
+          {
+            label: "dashboard",
+            link: "/dashboard/user/profile",
+          },
+        ]}
+      />
       <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">

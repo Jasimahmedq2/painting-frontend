@@ -1,4 +1,5 @@
 "use client";
+import PBreadCrumb from "@/components/UI/PBreadCrumb";
 import {
   useAddCategoryMutation,
   useAddServiceMutation,
@@ -67,51 +68,61 @@ const AddCategory = () => {
   }, [isLoading, isSuccess, isError]);
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <form
-        className="bg-white p-8 rounded-lg shadow-md w-1/2"
-        onSubmit={handleSubmit(onsubmit)}
-      >
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-          add Category
-        </h2>
-
-        <div className="mb-4">
-          <label htmlFor="firstName" className="text-gray-600">
-            Name
-          </label>
-          <input
-            {...register("name", { required: "name is required" })}
-            aria-invalid={errors.name ? "true" : "false"}
-            placeholder="create a category"
-            className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-          {errors.name && (
-            <p className="text-sm text-red-400">{errors.name.message}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label className="text-gray-600">image</label>
-          <input
-            type="file"
-            {...register("image", { required: "image is required" })}
-            area-invalid={errors.image ? "true" : "false"}
-            className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-          {errors.image && (
-            <p className="text-sm text-red-400">{errors.image.message}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+    <>
+      <PBreadCrumb
+        items={[
+          {
+            label: "dashboard",
+            link: "/dashboard/user/profile",
+          },
+        ]}
+      />
+      <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+        <form
+          className="bg-white p-8 rounded-lg shadow-md w-11/12 sm:w-1/2"
+          onSubmit={handleSubmit(onsubmit)}
         >
-          {loading ? "loading..." : "Submit"}
-        </button>
-      </form>
-    </div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            add Category
+          </h2>
+
+          <div className="mb-4">
+            <label htmlFor="firstName" className="text-gray-600">
+              Name
+            </label>
+            <input
+              {...register("name", { required: "name is required" })}
+              aria-invalid={errors.name ? "true" : "false"}
+              placeholder="create a category"
+              className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            />
+            {errors.name && (
+              <p className="text-sm text-red-400">{errors.name.message}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label className="text-gray-600">image</label>
+            <input
+              type="file"
+              {...register("image", { required: "image is required" })}
+              area-invalid={errors.image ? "true" : "false"}
+              className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            />
+            {errors.image && (
+              <p className="text-sm text-red-400">{errors.image.message}</p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+          >
+            {loading ? "loading..." : "Submit"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
