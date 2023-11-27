@@ -13,10 +13,6 @@ import { USER_ROLE } from "./role";
 export const sidebarItems = (role: string) => {
   const defaultSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href="/home">Home</Link>,
-      key: "home",
-    },
-    {
       label: "Profile",
       key: "profile",
       icon: <ProfileOutlined />,

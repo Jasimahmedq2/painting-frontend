@@ -196,17 +196,18 @@ const ManageUser = () => {
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button
-                                  className="cursor-pointer uppercase"
+                                  className="cursor-pointer bg-gray-200 uppercase"
                                   variant="outline"
                                 >
                                   {result?.role}
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-56">
+                              <DropdownMenuContent className="w-56 bg-white shadow-lg">
                                 <DropdownMenuLabel>user role</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuRadioGroup>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeUserRole(
                                         "customer",
@@ -218,6 +219,7 @@ const ManageUser = () => {
                                     customer
                                   </DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeUserRole(
                                         "painter",
@@ -229,6 +231,7 @@ const ManageUser = () => {
                                     painter
                                   </DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeUserRole("admin", result?._id)
                                     }

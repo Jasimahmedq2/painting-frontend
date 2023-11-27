@@ -93,7 +93,7 @@ const ManageBooking = () => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
             <div className="text-lg font-bold">manage booking</div>
-            <div className="sm:w-1/2 py-4 px-2">  
+            <div className="sm:w-1/2 py-4 px-2">
               <input
                 type="text"
                 placeholder="searching.."
@@ -144,53 +144,57 @@ const ManageBooking = () => {
                                   {result?.status}
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-56">
+                              <DropdownMenuContent className="w-56 bg-white shadow-lg">
                                 <DropdownMenuLabel>
                                   order Status
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuRadioGroup
-                                  value={position}
-                                  onValueChange={setPosition}
+                                // value={position}
+                                // onValueChange={setPosition}
                                 >
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeStatus("pending", result?._id)
                                     }
-                                    value="pending"
+                                    // value="pending"
                                   >
                                     pending
                                   </DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeStatus(
                                         "accepted",
                                         result?._id
                                       )
                                     }
-                                    value="accepted"
+                                    // value="accepted"
                                   >
                                     accepted
                                   </DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeStatus(
                                         "completed",
                                         result?._id
                                       )
                                     }
-                                    value="completed"
+                                    // value="completed"
                                   >
                                     completed
                                   </DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300 rounded"
                                     onClick={() =>
                                       handleChangeStatus(
                                         "canceled",
                                         result?._id
                                       )
                                     }
-                                    value="canceled"
+                                    // value="canceled"
                                   >
                                     canceled
                                   </DropdownMenuRadioItem>

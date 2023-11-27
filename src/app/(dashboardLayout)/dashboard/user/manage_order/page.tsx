@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/UI/dropdown-menu";
+import PBreadCrumb from "@/components/UI/PBreadCrumb";
 
 const ManageOrder = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,6 +73,14 @@ const ManageOrder = () => {
 
   return (
     <div>
+      <PBreadCrumb
+        items={[
+          {
+            label: "dashboard",
+            link: "/dashboard/user/profile",
+          },
+        ]}
+      />
       <div className="items-center w-full px-4 py-4 mx-auto my-10 bg-white border border-indigo-600 rounded-lg shadow-md lg:w-11/12 sm:w-2/3 sm:min-h-screen">
         <div className="container mx-auto">
           <div className="flex justify-between items-center w-full px-4 py-2">
@@ -124,17 +133,22 @@ const ManageOrder = () => {
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button
-                                  className="cursor-pointer uppercase"
+                                  className={`cursor-pointer ${
+                                    result?.status === "completed"
+                                      ? "bg-green-400"
+                                      : "bg-gray-200"
+                                  } uppercase `}
                                   variant="outline"
                                 >
                                   {result?.status}
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-56">
+                              <DropdownMenuContent className="w-56 shadow-lg bg-white">
                                 <DropdownMenuLabel>status</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuRadioGroup>
                                   <DropdownMenuRadioItem
+                                    className="hover:bg-gray-300"
                                     onClick={() =>
                                       HandleChangeStatus(
                                         "canceled",
