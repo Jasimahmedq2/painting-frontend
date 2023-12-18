@@ -16,14 +16,15 @@ import { message } from "antd";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
 import ServiceCard from "@/components/UI/serviceCard";
-import { isLoggedIn } from "@/utilites/auth.service";
+import { getUserInfo, isLoggedIn } from "@/utilites/auth.service";
 import { useRouter } from "next/navigation";
-
-
+import { USER_ROLE } from "@/constants/role";
+import { UserInfoData } from "@/utilites/userInfo.type";
 
 const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   const router = useRouter();
   const token = getFromLocalStorage(authKey);
+  const userInfo: UserInfoData | unknown = getUserInfo();
   const { data, isLoading: SIsloading } = useGetSingleServiceQuery({
     id: params.service,
     token: token,
@@ -38,6 +39,12 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   const handleAddService = async (id: string) => {
     if (!isLoggedIn()) {
       return router.push("/login");
+    }
+    if (userInfo?.role !== USER_ROLE.CUSTOMER) {
+      message.error(
+        `only customer can purchase any order you are an ${userInfo?.role}`
+      );
+      return;
     }
     const serviceInfo = {
       token: token,
@@ -85,7 +92,7 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
 
             <button
               onClick={() => handleAddService(data?.data?._id)}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
             >
               Booking
             </button>

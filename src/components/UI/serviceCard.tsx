@@ -1,7 +1,9 @@
+import { USER_ROLE } from "@/constants/role";
 import { useAddToCartMutation } from "@/redux/service/serviceApiSlice";
-import { isLoggedIn } from "@/utilites/auth.service";
+import { getUserInfo, isLoggedIn } from "@/utilites/auth.service";
 import { authKey } from "@/utilites/authkey";
 import { getFromLocalStorage } from "@/utilites/local-storage";
+import { UserInfoData } from "@/utilites/userInfo.type";
 import { StarFilled } from "@ant-design/icons";
 import { message } from "antd";
 import Image from "next/image";
@@ -12,12 +14,22 @@ import React, { useEffect } from "react";
 const ServiceCard = ({ service }: { service: any }) => {
   const router = useRouter();
   const token = getFromLocalStorage(authKey);
+  const userInfo: UserInfoData | unknown = getUserInfo();
+  console.log(userInfo);
   const [addToCart, { isLoading, isSuccess, isError }] = useAddToCartMutation();
 
   const handleAddService = async (id: string) => {
     if (!isLoggedIn()) {
       return router.push("/login");
     }
+
+    if (userInfo?.role !== USER_ROLE.CUSTOMER) {
+      message.error(
+        `only customer can purchase any order you are an ${userInfo?.role}`
+      );
+      return;
+    }
+
     const serviceInfo = {
       token: token,
       info: {
@@ -66,14 +78,14 @@ const ServiceCard = ({ service }: { service: any }) => {
       </div>
       <div className="px-6 flex items-center justify-between pt-4 pb-2">
         <Link href={`/services/${service?._id}`}>
-          <button className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+          <button className="bg-black border text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:cursor-pointer">
             details
           </button>
         </Link>
 
         <button
           onClick={() => handleAddService(service?._id)}
-          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:cursor-pointer"
         >
           booking
         </button>
