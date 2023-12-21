@@ -119,6 +119,7 @@ const ManageOrder = () => {
                 ) : (
                   searchResults?.length > 0 &&
                   searchResults?.map((result: any) => {
+                    console.log({ result });
                     return (
                       <>
                         <tr
@@ -136,31 +137,37 @@ const ManageOrder = () => {
                                   className={`cursor-pointer ${
                                     result?.status === "completed"
                                       ? "bg-green-400"
-                                      : "bg-gray-200"
-                                  } uppercase `}
+                                      : "" || result?.status === "accepted"
+                                      ? "bg-[#FDEE00]"
+                                      : "" || result?.status === "canceled"
+                                      ? "bg-red-400"
+                                      : ""
+                                  }  uppercase `}
                                   variant="outline"
                                 >
                                   {result?.status}
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-56 shadow-lg bg-white">
-                                <DropdownMenuLabel>status</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuRadioGroup>
-                                  <DropdownMenuRadioItem
-                                    className="hover:bg-gray-300"
-                                    onClick={() =>
-                                      HandleChangeStatus(
-                                        "canceled",
-                                        result?._id
-                                      )
-                                    }
-                                    value="canceled"
-                                  >
-                                    canceled
-                                  </DropdownMenuRadioItem>
-                                </DropdownMenuRadioGroup>
-                              </DropdownMenuContent>
+                              {result?.status === "pending" && (
+                                <DropdownMenuContent className="w-56 shadow-lg bg-white">
+                                  <DropdownMenuLabel>status</DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuRadioGroup>
+                                    <DropdownMenuRadioItem
+                                      className="hover:bg-gray-300"
+                                      onClick={() =>
+                                        HandleChangeStatus(
+                                          "canceled",
+                                          result?._id
+                                        )
+                                      }
+                                      value="canceled"
+                                    >
+                                      canceled
+                                    </DropdownMenuRadioItem>
+                                  </DropdownMenuRadioGroup>
+                                </DropdownMenuContent>
+                              )}
                             </DropdownMenu>
                           </td>
                         </tr>

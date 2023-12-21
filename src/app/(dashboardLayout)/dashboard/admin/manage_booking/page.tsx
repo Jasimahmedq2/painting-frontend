@@ -140,66 +140,82 @@ const ManageBooking = () => {
                           <td>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
-                                <Button variant="outline">
+                                <Button
+                                  className={`${
+                                    result?.status === "completed"
+                                      ? "bg-green-400"
+                                      : "" || result?.status === "accepted"
+                                      ? "bg-[#FDEE00]"
+                                      : "" || result?.status === "canceled"
+                                      ? "bg-red-400"
+                                      : ""
+                                  } cursor-pointer uppercase`}
+                                  variant="outline"
+                                >
                                   {result?.status}
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-56 bg-white shadow-lg">
-                                <DropdownMenuLabel>
-                                  order Status
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuRadioGroup
-                                // value={position}
-                                // onValueChange={setPosition}
-                                >
-                                  <DropdownMenuRadioItem
-                                    className="hover:bg-gray-300 rounded"
-                                    onClick={() =>
-                                      handleChangeStatus("pending", result?._id)
-                                    }
-                                    // value="pending"
+                              {result?.status !== "completed" && (
+                                <DropdownMenuContent className="w-56 bg-white shadow-lg">
+                                  <DropdownMenuLabel>
+                                    order Status
+                                  </DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuRadioGroup
+                                  // value={position}
+                                  // onValueChange={setPosition}
                                   >
-                                    pending
-                                  </DropdownMenuRadioItem>
-                                  <DropdownMenuRadioItem
-                                    className="hover:bg-gray-300 rounded"
-                                    onClick={() =>
-                                      handleChangeStatus(
-                                        "accepted",
-                                        result?._id
-                                      )
-                                    }
-                                    // value="accepted"
-                                  >
-                                    accepted
-                                  </DropdownMenuRadioItem>
-                                  <DropdownMenuRadioItem
-                                    className="hover:bg-gray-300 rounded"
-                                    onClick={() =>
-                                      handleChangeStatus(
-                                        "completed",
-                                        result?._id
-                                      )
-                                    }
-                                    // value="completed"
-                                  >
-                                    completed
-                                  </DropdownMenuRadioItem>
-                                  <DropdownMenuRadioItem
-                                    className="hover:bg-gray-300 rounded"
-                                    onClick={() =>
-                                      handleChangeStatus(
-                                        "canceled",
-                                        result?._id
-                                      )
-                                    }
-                                    // value="canceled"
-                                  >
-                                    canceled
-                                  </DropdownMenuRadioItem>
-                                </DropdownMenuRadioGroup>
-                              </DropdownMenuContent>
+                                    <DropdownMenuRadioItem
+                                      className="hover:bg-gray-300 rounded"
+                                      onClick={() =>
+                                        handleChangeStatus(
+                                          "pending",
+                                          result?._id
+                                        )
+                                      }
+                                      // value="pending"
+                                    >
+                                      pending
+                                    </DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem
+                                      className="hover:bg-gray-300 rounded"
+                                      onClick={() =>
+                                        handleChangeStatus(
+                                          "accepted",
+                                          result?._id
+                                        )
+                                      }
+                                      // value="accepted"
+                                    >
+                                      accepted
+                                    </DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem
+                                      className="hover:bg-gray-300 rounded"
+                                      onClick={() =>
+                                        handleChangeStatus(
+                                          "completed",
+                                          result?._id
+                                        )
+                                      }
+                                      // value="completed"
+                                    >
+                                      completed
+                                    </DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem
+                                      className="hover:bg-gray-300 rounded"
+                                      onClick={() =>
+                                        handleChangeStatus(
+                                          "canceled",
+                                          result?._id
+                                        )
+                                      }
+                                      // value="canceled"
+                                    >
+                                      canceled
+                                    </DropdownMenuRadioItem>
+                                  </DropdownMenuRadioGroup>
+                                </DropdownMenuContent>
+                              )}
                             </DropdownMenu>
                           </td>
                         </tr>
