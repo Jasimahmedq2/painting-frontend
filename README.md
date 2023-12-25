@@ -43,6 +43,21 @@
 - ### Start Date: `October 12, 2023`
 - ### Completion Date: `December 20, 2023`
 
+## technologies
+- Nextjs
+- Typescript,
+- tailwindCss,
+- ant design
+- nodejs
+- express js
+- mongoose
+
+## Process to run the website locally
+- clone the repository `git clone repository link`
+- navigate the repository `cd repository name`
+- install node_module packages `npm install || yarn install`
+- `npm run dev` to start the project
+
 
 
 
