@@ -27,7 +27,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={inter.className}>
             <WholeLayout>
-              <div className="sm:min-h-screen lg:max-w-[1280px] mx-auto">
+              <div className="sm:min-h-screen">
                 {children}
               </div>
             </WholeLayout>

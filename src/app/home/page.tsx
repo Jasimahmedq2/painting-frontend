@@ -1,4 +1,6 @@
 "use client";
+import FAQComponent from "@/components/UI/FAQComponent";
+import Process from "@/components/UI/Process";
 import Banner from "@/components/UI/banner";
 import NewsLetter from "@/components/UI/newsLetter";
 import OverView from "@/components/UI/overview";
@@ -8,14 +10,16 @@ import UpComingServices from "@/components/UI/upcommingServices";
 
 const HomePage = () => {
   return (
-    <div>
+    <>
       <Banner />
       <ServiceCategory />
+      <Process />
       <UpComingServices />
-      <NewsLetter />
       <OverView />
       <Review />
-    </div>
+      <NewsLetter />
+      <FAQComponent />
+    </>
   );
 };
 
