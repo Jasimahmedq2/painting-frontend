@@ -16,7 +16,6 @@ const serviceApi = api.injectEndpoints({
     getCategory: builder.query({
       query: () => ({
         url: `/category/get-categories`,
-
       }),
       providesTags: ["service"],
     }),
@@ -101,13 +100,12 @@ const serviceApi = api.injectEndpoints({
       providesTags: ["service"],
     }),
     placeOrder: builder.mutation({
-      query: (data) => ({
-        url: `/order/create-order`,
+      query: (token) => ({
+        url: `/payment/init`,
         method: "POST",
         headers: {
-          authorization: `${data?.token}`,
+          authorization: `${token}`,
         },
-        body: { items: data.itemsInfo, total: data.totalPrice },
       }),
       invalidatesTags: ["service"],
     }),

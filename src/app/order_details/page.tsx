@@ -16,13 +16,19 @@ const OrderPage = () => {
   const { data, isLoading, isError, isSuccess } = useGetCartQuery(token);
   const [
     placeOrder,
-    { isLoading: OIsLoading, isSuccess: OIsSuccess, isError: OIsError },
+    {
+      isLoading: OIsLoading,
+      isSuccess: OIsSuccess,
+      isError: OIsError,
+      data: RedirectData,
+    },
   ] = usePlaceOrderMutation();
+
+  console.log({ RedirectData });
 
   useEffect(() => {
     if (OIsSuccess) {
-      message.success("successfully place an order");
-      router.push("/dashboard/user/manage_order");
+      window.location.replace(RedirectData?.data);
     }
     if (OIsLoading) {
       message.loading("loading...");
@@ -30,7 +36,7 @@ const OrderPage = () => {
     if (OIsError) {
       message.error("something went wrong");
     }
-  }, [OIsSuccess, OIsError, OIsLoading, router]);
+  }, [OIsSuccess, OIsError, OIsLoading, router, RedirectData?.data]);
 
   if (isLoading) {
     return <Loading />;
@@ -38,17 +44,12 @@ const OrderPage = () => {
   const totalPrice = data?.data?.totalPrice;
   const carts = data?.data.cart;
   const itemsInfo = carts?.items?.map((obj: any) => ({
-    quantity: obj.quantity,
-    painting: obj.service._id,
+    quantity: obj?.quantity,
+    painting: obj?.service?._id,
   }));
 
   const handlePlaceOrder = async () => {
-    const orderInfo = {
-      token,
-      itemsInfo,
-      totalPrice,
-    };
-    await placeOrder(orderInfo);
+    await placeOrder(token);
   };
 
   return (
@@ -85,7 +86,7 @@ const OrderPage = () => {
 
         <button
           onClick={handlePlaceOrder}
-          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600 hover:cursor-pointer"
         >
           Place Order
         </button>

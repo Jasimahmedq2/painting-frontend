@@ -74,12 +74,12 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
 
   return (
     <div className="bg-white p-2 shadow sm:px-12 sm:py-12 sm:min-h-screen">
-      <div className="sm:flex justify-between items-center ">
-        <div className="pr-4">
+      <div className="sm:flex justify-between  items-center ">
+        <div className="sm:pr-4">
           <Image
-            className="rounded"
-            width={500}
-            height={500}
+            className="rounded-lg"
+            width={400}
+            height={400}
             alt="image"
             src={data?.data?.image}
           />
@@ -111,7 +111,7 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
         </div>
       </div>
       <div>
-        <h2 className="text-xl font-bold text-black my-4">Related services</h2>
+        <h2 className="text-xl font-bold text-black sm:pt-16 pt-8 my-4">Related services</h2>
         <div className=" grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CData?.data?.map((service: any) => {
             return <ServiceCard key={service?._id} service={service} />;

@@ -164,7 +164,7 @@ const ShippingAddress = () => {
 
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 hover:cursor-pointer"
         >
           {isLoading ? "loading..." : "Submit"}
         </button>

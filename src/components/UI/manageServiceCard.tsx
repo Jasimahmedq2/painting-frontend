@@ -64,7 +64,7 @@ const ManageServiceCard = ({ service }: { service: any }) => {
       </div>
       <div className="px-6 flex items-center justify-between pt-4 pb-2">
         <Link href={`/dashboard/admin/manage_service/${service?._id}`}>
-          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:cursor-pointer">
             edit
           </button>
         </Link>
