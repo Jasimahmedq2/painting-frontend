@@ -43,7 +43,7 @@ const ManageServiceCard = ({ service }: { service: any }) => {
   return (
     <div
       key={service?._id}
-      className="max-w-sm rounded overflow-hidden shadow-lg"
+      className="max-w-lg rounded overflow-hidden shadow-lg"
     >
       <Image
         width={400}

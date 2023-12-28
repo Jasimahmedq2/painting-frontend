@@ -28,14 +28,8 @@ export const sidebarItems = (role: string) => {
   const customerSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: "Manage Order",
+      label: <Link href="/dashboard/user/manage_order">All Order</Link>,
       key: "manage-order",
-      children: [
-        {
-          label: <Link href="/dashboard/user/manage_order">All Order</Link>,
-          key: "order",
-        },
-      ],
     },
   ];
   const painterSidebarItems: MenuProps["items"] = [

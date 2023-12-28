@@ -127,25 +127,10 @@ export const NavBar = () => {
                       href="/"
                       aria-label="Company"
                       title="Company"
-                      className="inline-flex items-center"
+                      className="inline-flex items-center no-underline "
                     >
-                      <svg
-                        className="w-8 text-deep-purple-accent-400"
-                        viewBox="0 0 24 24"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeMiterlimit="10"
-                        stroke="currentColor"
-                        fill="none"
-                      >
-                        <rect x="3" y="1" width="7" height="12" />
-                        <rect x="3" y="17" width="7" height="6" />
-                        <rect x="14" y="1" width="7" height="6" />
-                        <rect x="14" y="11" width="7" height="12" />
-                      </svg>
                       <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Company
+                        PaintHut
                       </span>
                     </Link>
                   </div>
@@ -172,47 +157,54 @@ export const NavBar = () => {
                         href="/"
                         aria-label="Our product"
                         title="Our product"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        Product
+                        Home
                       </Link>
                     </div>
                     <div>
                       <Link
-                        href="/"
+                        href="/services"
                         aria-label="Our product"
                         title="Our product"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        Features
+                        services
                       </Link>
                     </div>
                     <div>
                       <Link
-                        href="/"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
+                        href="/dashboard/user/profile"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        Pricing
+                        dashboard
                       </Link>
                     </div>
-                    <div>
-                      <Link
-                        href="/"
-                        aria-label="About us"
-                        title="About us"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]"
-                      >
-                        About us
-                      </Link>
-                    </div>
-                    <div>
-                      <Link
-                        href="/"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff]"
-                      >
-                        Sign up
-                      </Link>
-                    </div>
+
+                    {isLoggedIn() ? (
+                      <div>
+                        <Link
+                          href="login"
+                          onClick={handleLogin}
+                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none cursor-pointer no-underline"
+                          aria-label="Sign up"
+                          title="Sign up"
+                        >
+                          LogOut
+                        </Link>
+                      </div>
+                    ) : (
+                      <div>
+                        <Link
+                          href="/login"
+                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#6922ff] focus:shadow-outline focus:outline-none no-underline"
+                          aria-label="Sign up"
+                          title="Sign up"
+                        >
+                          Login
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

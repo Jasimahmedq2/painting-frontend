@@ -163,7 +163,7 @@ const ManageService = () => {
             </div>
           </div>
         </div>
-        <div className="p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data?.data?.results?.map((service: any) => {
             return <ManageServiceCard key={service?._id} service={service} />;
           })}

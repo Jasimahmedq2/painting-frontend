@@ -20,6 +20,17 @@ import { getUserInfo, isLoggedIn } from "@/utilites/auth.service";
 import { useRouter } from "next/navigation";
 import { USER_ROLE } from "@/constants/role";
 import { UserInfoData } from "@/utilites/userInfo.type";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/UI/alert-dialog";
+import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 
 const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
   const router = useRouter();
@@ -44,7 +55,6 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
       message.error(
         `only customer can purchase any order you are an ${userInfo?.role}`
       );
-      return;
     }
     const serviceInfo = {
       token: token,
@@ -111,7 +121,9 @@ const ServiceDetailsPage = ({ params }: { params: { service: string } }) => {
         </div>
       </div>
       <div>
-        <h2 className="text-xl font-bold text-black sm:pt-16 pt-8 my-4">Related services</h2>
+        <h2 className="text-xl font-bold text-black sm:pt-16 pt-8 my-4">
+          Related services
+        </h2>
         <div className=" grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CData?.data?.map((service: any) => {
             return <ServiceCard key={service?._id} service={service} />;
