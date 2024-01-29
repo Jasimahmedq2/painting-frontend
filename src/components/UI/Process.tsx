@@ -1,6 +1,9 @@
 import Image from "next/image";
 
+
 const Process = () => {
+
+
   return (
     <div className="px-4 py-16 mx-auto md:px-24 lg:px-8 lg:py-20">
       <h2 className="max-w-lg text-center mx-auto sm:py-16 mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none md:mb-6 group">
@@ -11,8 +14,8 @@ const Process = () => {
       </h2>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-        <div className="grid gap-6 md:grid-cols-2 md:col-span-2 lg:col-span-3">
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50">
+        <div className="grid gap-6 md:grid-cols-2 md:col-span-2 lg:col-span-3 ">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-white rounded bg-[#5e22f4]">
                 1
@@ -26,7 +29,7 @@ const Process = () => {
               needs, preferences, and any specific requirements.
             </p>
           </div>
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-teal-50">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-teal-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-teal-900 rounded bg-[#40e1b6]">
                 2
@@ -41,7 +44,7 @@ const Process = () => {
               cost estimates.
             </p>
           </div>
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-teal-50">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-teal-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-white rounded  bg-deep-purple-accent-400 bg-[#5e22f4]">
                 3
@@ -55,7 +58,7 @@ const Process = () => {
               design elements that suit your space and personal style.
             </p>
           </div>
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-teal-900 rounded md:text-white bg-[#40e1b6]">
                 4
@@ -70,7 +73,7 @@ const Process = () => {
               flawless finish.
             </p>
           </div>
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-teal-900 rounded md:text-white bg-[#5e22f4] md:bg-deep-purple-accent-400">
                 5
@@ -84,7 +87,7 @@ const Process = () => {
               efficient techniques, ensuring precision and a stunning result.
             </p>
           </div>
-          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50">
+          <div className="rounded lg:p-5 lg:transition lg:duration-300 lg:hover:bg-indigo-50 overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <div className="flex items-center mb-1">
               <span className="flex items-center justify-center w-4 h-4 mr-2 text-xs font-medium text-teal-900 rounded md:text-white bg-[#40e1b6] md:bg-deep-purple-accent-400">
                 6
@@ -100,7 +103,9 @@ const Process = () => {
             </p>
           </div>
         </div>
-        <div className="relative md:col-span-2 lg:col-span-2">
+        <div
+          className="relative md:col-span-2 lg:col-span-2"
+        >
           <Image
             width={400}
             height={400}

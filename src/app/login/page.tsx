@@ -2,11 +2,18 @@
 import Link from "next/link";
 import bgImage from "../../assests/Mobile login-pana.svg";
 import { message } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginUserMutation } from "@/redux/auth/authApiSlice";
 import { useRouter } from "next/navigation";
 import { storeUserInfo } from "@/utilites/auth.service";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/UI/tooltip";
+import { Button } from "@/components/UI/button";
 
 type ILoginInput = {
   email: string;
@@ -15,17 +22,17 @@ type ILoginInput = {
 
 const Login = () => {
   const router = useRouter();
+  const [creadential, setCreadential] = useState<ILoginInput>({
+    email: "jasim.dev48@gmail.com",
+    password: "12345",
+  });
+
   const {
     register,
     reset,
     formState: { errors },
     handleSubmit,
-  } = useForm<ILoginInput>({
-    defaultValues: {
-      email: "jasim.dev48@gmail.com",
-      password: "123456",
-    },
-  });
+  } = useForm<ILoginInput>();
 
   const [loginUser, { data: LData, isLoading, isSuccess, isError, error }] =
     useLoginUserMutation();
@@ -35,6 +42,12 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (creadential) {
+      reset({
+        email: creadential?.email,
+        password: creadential?.password,
+      });
+    }
     if (isSuccess && !isLoading) {
       message.info("successfully logged in");
       storeUserInfo({ accessToken: LData?.data?.token });
@@ -43,7 +56,32 @@ const Login = () => {
     if (isError) {
       message.error("something went wrong");
     }
-  }, [isLoading, isError, isSuccess, router, LData?.data?.token]);
+  }, [
+    isLoading,
+    isError,
+    isSuccess,
+    router,
+    LData?.data?.token,
+    reset,
+    creadential,
+  ]);
+  const handleAdminCreadential = () => {
+    const newCreadential = {
+      email: "admin@admin.com",
+      password: "123456",
+    };
+    console.log({ newCreadential, creadential });
+
+    setCreadential(newCreadential);
+  };
+  const hanldeCustomerCreadential = () => {
+    const newCreadential = {
+      email: "jasim.dev48@gmail.com",
+      password: "123456",
+    };
+    console.log({ newCreadential, creadential });
+    setCreadential(newCreadential);
+  };
   return (
     <div className="overflow-hidden bg-gray-900 sm:h-screen">
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -100,6 +138,7 @@ const Login = () => {
                       placeholder="email"
                       type="text"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-[#f0f0f0] focus:outline-none focus:shadow-outline"
+                      // value={creadential?.email}
                     />
                     {errors.email && (
                       <p className="text-red-400 text-sm">
@@ -122,6 +161,7 @@ const Login = () => {
                       aria-invalid={errors.password ? "true" : "false"}
                       type="password"
                       className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      // value={creadential?.password}
                     />
                     {errors.password && (
                       <p className="text-red-400 text-sm">
@@ -137,13 +177,55 @@ const Login = () => {
                       Login
                     </button>
                   </div>
-                  <Link
-                    href="signup"
-                    className="text-md text-sky-600 sm:text-sm underline "
-                  >
-                    create new account?
-                  </Link>
                 </form>
+                <div className="flex justify-between items-center ">
+                  <div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            onClick={handleAdminCreadential}
+                            className="cursor-pointer"
+                            variant="outline"
+                          >
+                            Login as a Admin
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent className="bg-white">
+                          <p>email: Admin@admin.com</p>
+                          <br />
+                          <p>passowrd: 123456</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            onClick={hanldeCustomerCreadential}
+                            className="cursor-pointer"
+                            variant="outline"
+                          >
+                            Login as a customer
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent className="bg-white">
+                          <p>email: jasim.dev48@gmail.com</p>
+                          <br />
+                          <p>passowrd: 123456</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </div>
+                <Link
+                  href="signup"
+                  className="text-md text-sky-600 sm:text-sm underline pt-4"
+                >
+                  create new account?
+                </Link>
               </div>
             </div>
           </div>

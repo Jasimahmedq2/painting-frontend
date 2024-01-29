@@ -102,26 +102,7 @@ const Services = ({ params }: { params: { category: string } }) => {
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
       <div>
-        <Row className="sm:pl-12 pl-2">
-          <Col span={12}>
-            <Slider
-              min={50}
-              max={10000}
-              onChange={handlePriceSlider}
-              value={typeof minPrice === "number" ? minPrice : 0}
-            />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={50}
-              max={10000}
-              style={{ margin: "0 16px" }}
-              value={minPrice}
-              onChange={handlePriceSlider}
-            />
-          </Col>
-        </Row>
-        <div className="flex justify-between items-center sm:pl-12 sm:pr-12 pt-4 pl-2 pr-2  space-x-2">
+        <div className="sm:pl-12 pl-2 sm:pb-6">
           <Input
             onChange={handleSearch}
             style={{
@@ -131,6 +112,28 @@ const Services = ({ params }: { params: { category: string } }) => {
             placeholder="search services"
             prefix={<SearchOutlined />}
           />
+        </div>
+
+        <div className="flex justify-between items-center sm:pl-12 sm:pr-12 pt-4 pl-2 pr-2  space-x-2">
+          <Row className="w-11/12">
+            <Col span={8}>
+              <Slider
+                min={50}
+                max={10000}
+                onChange={handlePriceSlider}
+                value={typeof minPrice === "number" ? minPrice : 0}
+              />
+            </Col>
+            <Col span={4}>
+              <InputNumber
+                min={50}
+                max={10000}
+                style={{ margin: "0 16px" }}
+                value={minPrice}
+                onChange={handlePriceSlider}
+              />
+            </Col>
+          </Row>
           <div className="sm:flex sm:space-x-2 sm:space-y-0 space-y-2">
             <Select
               defaultValue="price"
@@ -147,7 +150,7 @@ const Services = ({ params }: { params: { category: string } }) => {
           </div>
         </div>
       </div>
-      <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {data?.data?.results?.map((service: any) => {
           return <ServiceCard key={service?._id} service={service} />;
         })}

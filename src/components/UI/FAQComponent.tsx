@@ -1,5 +1,8 @@
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
+import { useRef } from "react";
+import gsap from "gsap"; // <-- import GSAP
+import { useGSAP } from "@gsap/react"; 
 
 const text = `
   A dog is a type of domesticated animal.
@@ -129,12 +132,19 @@ const items: CollapseProps["items"] = [
 ];
 
 const FAQComponent = () => {
+  const container = useRef();
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
+
+  useGSAP(() => {
+    gsap.to(".box", {x: 200}); 
+
+  }, { scope: container })
+
   return (
     <div className="sm:p-6 pt-8 sm:mt-16 sm:pt-16 sm:min-h-screen sm:flex justify-between items-baseline">
-      <div className="sm:w-1/3 space-y-6">
+      <div  className=" box sm:w-1/3 space-y-6" ref={container}>
         <h2 className="text-xl whitespace-break-spaces font-bold text-[#6620fe]">
           Frequently Asked Questions
         </h2>

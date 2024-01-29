@@ -3,8 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import banner1 from "../../../public/banner1.jpg";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
 const Banner = () => {
+  const textContainer = useRef();
+  const router = useRouter()
+  useGSAP(
+    () => {
+      gsap.from(textContainer.current, { y: 360, duration: 2, opacity:0 });
+    },
+    { scope: textContainer }
+  );
   return (
     <div className="relative flex flex-col-reverse py-12  lg:pt-0 lg:flex-col lg:pb-0">
       <div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
@@ -22,7 +34,10 @@ const Banner = () => {
           alt=""
         />
       </div>
-      <div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
+      <div
+        ref={textContainer}
+        className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl"
+      >
         <div
           // data-aos="fade-right"
           // data-aos-offset="200"
@@ -47,12 +62,15 @@ const Banner = () => {
             Discover the beauty and power of art on our painting website.
           </p>
           <div className="flex items-center">
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#681eff] focus:shadow-outline focus:outline-none no-underline"
-            >
+            <button onClick={() => router.push('/services')} className="text-xl cursor-pointer w-32 h-12 bg-[#6922ff] text-white relative overflow-hidden group z-10 rounded-lg">
+              <span className="absolute bg-white rotate-12 -inset-8 group-hover:duration-300 duration-700 scale-x-0 group-hover:scale-x-100 origin-left transform transition-transform"></span>
+              <span className="absolute bg-sky-700 rotate-12 -inset-8 group-hover:duration-700 duration-500 scale-x-0 group-hover:scale-x-100 origin-left transform transition-transform"></span>
+              <span className="absolute bg-sky-900 rotate-12 -inset-8 group-hover:duration-500 duration-300 scale-x-0 group-hover:scale-x-50 origin-left transform transition-transform"></span>
+              <span className="absolute opacity-0 group-hover:opacity-100 duration-100 group-hover:duration-700 ease-out text-center z-10 text-white cursor-pointer">
+                Services
+              </span>
               Services
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -47,6 +47,14 @@ export const NavBar = () => {
               services
             </Link>
           </div>
+          <div>
+            <Link
+              href="/faq"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
+            >
+              FAQ
+            </Link>
+          </div>
           {isLoggedIn() && (
             <Link className="no-underline" href="/dashboard/user/profile">
               <div className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3]  ">
@@ -170,6 +178,14 @@ export const NavBar = () => {
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
                         services
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href="/faq"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
+                      >
+                        FAQ
                       </Link>
                     </div>
                     <div>

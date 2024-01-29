@@ -7,9 +7,11 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import newsLetter from "../../assests/newsLetter.jpg";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 type INewsLetter = {
   email: string;
@@ -24,6 +26,7 @@ const NewsLetter = () => {
     reset,
     formState: { errors },
   } = useForm<INewsLetter>();
+  const textContainer = useRef();
 
   const [subscribeNewsLetter, { isLoading, isSuccess, isError, error }] =
     useSubsCribeNewsLetterMutation();
@@ -54,8 +57,15 @@ const NewsLetter = () => {
       message.error(error?.data?.errorMessage[0].message);
     }
   }, [isLoading, isSuccess, isError, reset, error?.data?.errorMessage]);
+
+  const { contextSafe } = useGSAP({ scope: textContainer });
+
+  const onFocusedContent = () => {
+    gsap.from(textContainer.current, { y: 360, duration: 2, opacity: 0 });
+  };
+
   return (
-    <div className="relative">
+    <div onFocus={onFocusedContent} className="relative">
       <Image
         width={500}
         height={500}
@@ -63,7 +73,7 @@ const NewsLetter = () => {
         className="absolute inset-0 object-cover w-full h-full"
         alt="newsLetter"
       />
-      
+
       <div className="relative bg-opacity-75 bg-[#7748ec]">
         <svg
           className="absolute inset-x-0 bottom-0 text-white"
@@ -76,15 +86,11 @@ const NewsLetter = () => {
         </svg>
         <div className="relative px-4 py-16 mx-auto overflow-hidden sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="flex flex-col items-center justify-between xl:flex-row">
-            <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-              <h2
-                data-aos="fade-up"
-                data-aos-offset="200"
-                data-aos-delay="50"
-                data-aos-duration="1000"
-                data-aos-easing="ease-in-out"
-                className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none"
-              >
+            <div
+              ref={textContainer}
+              className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12"
+            >
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
                 Stay in the Loop with Our Newsletter{" "}
               </h2>
               <p

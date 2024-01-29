@@ -5,6 +5,7 @@ import category2 from "../../assests/pexels-karl-solano-2883049.jpg";
 import category3 from "../../assests/pexels-pixabay-262034.jpg";
 import category4 from "../../assests/pexels-pavel-danilyuk-6925357.jpg";
 import { useState } from "react";
+import { serialize } from "v8";
 
 const upcomingServices = [
   {
@@ -81,54 +82,46 @@ const UpComingServices = () => {
         </div>
 
         <div>
-          <div className="flex flex-col mb-6 lg:justify-between lg:flex-row md:mb-8">
-            <h2 className="max-w-lg mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none md:mb-6 group">
-              <span className="inline-block mb-1 sm:mb-4">
-                Upcoming Winter
-                <br className="hidden md:block" />
-                Services
-              </span>
+        <div className="flex flex-col mb-6 lg:justify-between lg:flex-row md:mb-8">
+  <h2 className="max-w-lg mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none md:mb-6 group relative">
+    <span className="inline-block mb-1 sm:mb-4">
+      Upcoming Winter
+      <br className="hidden md:block" />
+      Services
+    </span>
 
-              <div className="h-1 ml-auto duration-300 origin-left transform bg-[#7044e5] scale-x-30 group-hover:scale-x-100" />
-            </h2>
-          </div>
-
-          <div className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="h-1 ml-auto duration-300 origin-left transform bg-[#7044e5] scale-x-30 group-hover:scale-x-100 transition-transform absolute bottom-0 left-0 right-0"></div>
+  </h2>
+</div>
+          <div className="relative grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {upcomingServices.map((service) => {
               return (
                 <div
-                  key={service?._id}
-                  className="flex flex-col justify-between overflow-hidden text-left transition-shadow duration-200 bg-white rounded shadow-xl group hover:shadow-2xl"
+                  key={service._id}
+                  className="max-[350px] md:w-[400px] bg-white  px-6 py-4 mx-auto rounded-2xl space-y-6 shadow-md overflow-hidden transition duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
                 >
-                  <div>
-                    <Image
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-48 md:h-54 xl:h-80"
-                      src={service?.image}
-                      alt="category"
-                    />
-
-                    <div className="p-5">
-                      <p className="mb-2 font-bold">{service?.name}</p>
-                      <p className="text-sm leading-5 text-gray-900">
-                        {service?.description.length > 100
-                          ? service?.description.substring(0, 100) + "..."
-                          : service?.description}
-                      </p>
-                    </div>
-                    {/* <div className="flex justify-center">
-                      <button
-                        className={`bg-blue-500 hover:bg-blue-700 text-white w-full font-bold py-2 px-4 rounded ${
-                          isDisabled ? "cursor-not-allowed opacity-50" : ""
-                        }`}
-                        disabled={isDisabled}
-                      >
-                        Not Available
-                      </button>
-                    </div> */}
+                  {/* Card Image */}
+                  <Image
+                    className="w-[350px] mx-auto h-[190px] bg-gray-400 rounded-2xl"
+                    src={service?.image}
+                   
+                    alt=""
+                  />
+                  {/* Card Heading */}
+                  <div className="space-y-2">
+                    <h2 className="text-slate-800 font-medium md:text-xl sm:text-lg ">
+                      {service?.name}
+                    </h2>
+                    <p>
+                      {service?.description.length > 100
+                        ? service?.description.substring(0, 100) + "..."
+                        : service?.description}
+                    </p>
                   </div>
-                  <div className="w-full h-1 ml-auto duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
+
+                  <div className="mt-5 flex justify-between items-center font-medium">
+                    <h2 className="md:text-xl text-gray-800">$20.00</h2>
+                  </div>
                 </div>
               );
             })}
