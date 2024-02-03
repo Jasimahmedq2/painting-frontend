@@ -8,7 +8,7 @@ const DashboardContent = ({ children }: { children: React.ReactNode }) => {
   } = theme.useToken();
   return (
     <Content>
-      <div style={{ minHeight: "100vh", background: colorBgContainer }}>
+      <div style={{ minHeight: "100vh"}}>
         {children}
       </div>
     </Content>

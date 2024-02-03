@@ -31,6 +31,20 @@ export const sidebarItems = (role: string) => {
       label: <Link href="/dashboard/user/manage_order">All Order</Link>,
       key: "manage-order",
     },
+    {
+      label: <Link href="/dashboard/user/pending_order">Pending Order</Link>,
+      key: "pending_order",
+    },
+    {
+      label: (
+        <Link href="/dashboard/user/completed_order">completed Order</Link>
+      ),
+      key: "completed_order",
+    },
+    {
+      label: <Link href="/dashboard/user/canceled_order">canceled Order</Link>,
+      key: "canceled_order",
+    },
   ];
   const painterSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,

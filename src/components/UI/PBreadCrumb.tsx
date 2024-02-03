@@ -29,9 +29,7 @@ const PBreadCrumb = ({
     }),
   ];
 
-  return <Breadcrumb style={{
-    marginLeft: "3rem"
-  }} items={breadCrumbItems}></Breadcrumb>;
+  return <Breadcrumb className="p-6 bg-white shadow" items={breadCrumbItems}></Breadcrumb>;
 };
 
 export default PBreadCrumb;

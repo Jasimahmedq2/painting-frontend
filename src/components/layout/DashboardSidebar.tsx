@@ -22,19 +22,21 @@ const DashboardSidebar = () => {
 
   return (
     <Sider
+      theme="light"
       style={{
         position: "sticky",
         top: 0,
         bottom: 0,
         left: 0,
       }}
+      className="shadow-xl"
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
       <div className="demo-logo-vertical" />
       <Menu
-        theme="dark"
+        theme="light"
         defaultSelectedKeys={["1"]}
         mode="inline"
         items={sidebarItems(role)}
