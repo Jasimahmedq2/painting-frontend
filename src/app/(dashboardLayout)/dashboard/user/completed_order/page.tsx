@@ -1,20 +1,22 @@
 "use client";
 import PBreadCrumb from "@/components/UI/PBreadCrumb";
 import { Button } from "@/components/UI/button";
-import { useGetPendingOrderQuery } from "@/redux/service/orderApi";
+import {
+  useGetCompletedOrderQuery,
+  useGetPendingOrderQuery,
+} from "@/redux/service/orderApi";
 import { authKey } from "@/utilites/authkey";
 import { getFromLocalStorage } from "@/utilites/local-storage";
 import { Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
-const PendingOrder = () => {
+const CompletedOrder = () => {
   const token = getFromLocalStorage(authKey);
-  const { data: PendingData, isLoading } = useGetPendingOrderQuery(token);
+  const { data: completedData, isLoading } = useGetCompletedOrderQuery(token);
 
   return (
     <>
-      {" "}
       <PBreadCrumb
         items={[
           {
@@ -27,10 +29,10 @@ const PendingOrder = () => {
         {/* top part  */}
         <div className="flex justify-between items-center">
           <h4 className="text-xl font-medium text-slate-800 uppercase">
-            Pending Order
+            Completed Order
           </h4>
           <p className="text-sm font-medium text-gray-400 uppercase">
-            {PendingData?.data?.total}
+            {completedData?.data?.total}
           </p>
         </div>
         <hr />
@@ -39,7 +41,7 @@ const PendingOrder = () => {
           <Skeleton />
         ) : (
           <>
-            {PendingData?.data?.items.map((item, idx) => (
+            {completedData?.data?.items.map((item, idx) => (
               <div
                 key={item?.id}
                 className="flex justify-between items-center border-b pb-6"
@@ -79,4 +81,4 @@ const PendingOrder = () => {
   );
 };
 
-export default PendingOrder;
+export default CompletedOrder;

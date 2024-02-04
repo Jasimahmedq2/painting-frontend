@@ -36,7 +36,7 @@ export const NavBar = () => {
               href="/home"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
             >
-              home
+              Home
             </Link>
           </div>
           <div>
@@ -44,7 +44,7 @@ export const NavBar = () => {
               href="/services"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
             >
-              services
+              Services
             </Link>
           </div>
           <div>
@@ -52,7 +52,7 @@ export const NavBar = () => {
               href="/faq"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
             >
-              FAQ
+              Faq
             </Link>
           </div>
           {isLoggedIn() && (
@@ -177,7 +177,7 @@ export const NavBar = () => {
                         title="Our product"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        services
+                        Services
                       </Link>
                     </div>
                     <div>
@@ -185,7 +185,7 @@ export const NavBar = () => {
                         href="/faq"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        FAQ
+                        Faq
                       </Link>
                     </div>
                     <div>
@@ -193,7 +193,7 @@ export const NavBar = () => {
                         href="/dashboard/user/profile"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#f5e3e3] no-underline"
                       >
-                        dashboard
+                        Dashboard
                       </Link>
                     </div>
 

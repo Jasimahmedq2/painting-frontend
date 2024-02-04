@@ -17,6 +17,7 @@ import {
   Pagination,
   Select,
   Input,
+  Skeleton,
 } from "antd";
 import type { PaginationProps } from "antd";
 import { SetStateAction, useState } from "react";
@@ -98,9 +99,9 @@ const ManageService = () => {
     setSearch(e.target.value);
   };
 
-  if (SisLoading) {
-    return <Loading />;
-  }
+  // if (SisLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <>
@@ -163,12 +164,16 @@ const ManageService = () => {
             </div>
           </div>
         </div>
-        <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data?.data?.results?.map((service: any) => {
-            return <ManageServiceCard key={service?._id} service={service} />;
-          })}
-        </div>
-        <div className="w-1/2 mx-auto pt-8">
+        {SisLoading ? (
+          <Skeleton className="p-12" />
+        ) : (
+          <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {data?.data?.results?.map((service: any) => {
+              return <ManageServiceCard key={service?._id} service={service} />;
+            })}
+          </div>
+        )}
+        <div className="flex justify-center pt-8">
           <Pagination
             showSizeChanger
             onChange={onShowSizeChange}

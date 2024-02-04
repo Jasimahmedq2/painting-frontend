@@ -9,7 +9,7 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { message } from "antd";
+import { Skeleton, message } from "antd";
 import {
   useChangeRoleMutation,
   useDeleteUserMutation,
@@ -80,9 +80,9 @@ const ManageUser = () => {
     }
   }, [CIsLoading, CIsSuccess, CIsError, DLoading, DSuccess, DError]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
   // this function changed user role by user id
   const handleChangeUserRole = async (role: string, userId: string) => {
     const orderInfo = {
@@ -150,7 +150,7 @@ const ManageUser = () => {
               </thead>
               <tbody className="text-sm font-normal text-gray-700">
                 {isLoading ? (
-                  <Loading />
+                  <Skeleton />
                 ) : (
                   searchResults.length > 0 &&
                   searchResults?.map((result: any) => {

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import category1 from "../../../../public/banner1.jpg";
-import { Descriptions, message } from "antd";
+import { Descriptions, Skeleton, message } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import Link from "next/link";
 import { getFromLocalStorage } from "@/utilites/local-storage";
@@ -25,11 +25,15 @@ const Page = ({ params }: { params: { category: string } }) => {
       <div>
         <h2 className=" p-12 text-4xl font-bold sm:text-5xl">Category</h2>
       </div>
-      <div className="px-12 grid  cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data?.data?.map((service: any) => {
-          return <ServiceCard key={service?._id} service={service} />;
-        })}
-      </div>
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <div className="px-12 grid  cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {data?.data?.map((service: any) => {
+            return <ServiceCard key={service?._id} service={service} />;
+          })}
+        </div>
+      )}
     </div>
   );
 };

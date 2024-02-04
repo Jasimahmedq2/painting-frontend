@@ -16,7 +16,7 @@ type IAddCategory = {
 };
 
 const AddCategory = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const token = getFromLocalStorage(authKey);
   const {
@@ -116,7 +116,7 @@ const AddCategory = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 cursor-pointer"
           >
             {loading ? "loading..." : "Submit"}
           </button>

@@ -6,7 +6,7 @@ import { getFromLocalStorage } from "@/utilites/local-storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Dropdown, message } from "antd";
+import { Button, Dropdown, Skeleton, message } from "antd";
 import { useGetUserOrderQuery } from "@/redux/auth/authApiSlice";
 import {
   DropdownMenu,
@@ -55,9 +55,6 @@ const ManageOrder = () => {
     }
   }, [CIsLoading, CIsSuccess, CIsError]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
 
   const HandleChangeStatus = async (status: string, userId: string) => {
     const statusInfo = {
@@ -104,7 +101,7 @@ const ManageOrder = () => {
                     Email
                   </th>
                   <th className="px-4 py-3 border-b-2 border-green-500">
-                    service id
+                    quantity
                   </th>
                   <th className="px-4 py-3 border-b-2 border-green-500">
                     price
@@ -116,7 +113,7 @@ const ManageOrder = () => {
               </thead>
               <tbody className="text-sm font-normal text-gray-700">
                 {isLoading ? (
-                  <Loading />
+                  <Skeleton/>
                 ) : (
                   searchResults?.length > 0 &&
                   searchResults?.map((result: any) => {
@@ -127,10 +124,16 @@ const ManageOrder = () => {
                           key={result?._id}
                           className="py-10 border-b border-gray-200 hover:bg-gray-100"
                         >
-                          <td className="px-4 py-4">{result?.user?.name}</td>
-                          <td className=" px-4 py-4">{result?.user?.email}</td>
-                          <td className=" px-4 py-4">{result?._id}</td>
-                          <td className="px-4 py-4">{result?.total}</td>
+                          <td className="px-4 py-4">
+                            {result?.result?.user?.name}
+                          </td>
+                          <td className=" px-4 py-4">
+                            {result?.result?.user?.email}
+                          </td>
+                          <td className=" px-4 py-4">
+                            {result?.items?.length}
+                          </td>
+                          <td className="px-4 py-4">{result?.result?.total}</td>
                           <td>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
@@ -146,10 +149,10 @@ const ManageOrder = () => {
                                   }  uppercase `}
                                   variant="outline"
                                 >
-                                  {result?.status}
+                                  {result?.result?.status}
                                 </Button>
                               </DropdownMenuTrigger>
-                              {result?.status === "pending" && (
+                              {result?.result?.status === "pending" && (
                                 <DropdownMenuContent className="w-56 shadow-lg bg-white">
                                   <DropdownMenuLabel>status</DropdownMenuLabel>
                                   <DropdownMenuSeparator />
@@ -159,7 +162,7 @@ const ManageOrder = () => {
                                       onClick={() =>
                                         HandleChangeStatus(
                                           "canceled",
-                                          result?._id
+                                          result?.result?._id
                                         )
                                       }
                                       value="canceled"

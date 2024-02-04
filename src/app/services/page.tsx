@@ -1,6 +1,6 @@
 "use client";
 
-import { Descriptions, Input, message } from "antd";
+import { Descriptions, Input, Skeleton, message } from "antd";
 import { SearchOutlined, StarFilled } from "@ant-design/icons";
 import {
   useAddToCartMutation,
@@ -95,10 +95,6 @@ const Services = ({ params }: { params: { category: string } }) => {
     setSearch(e.target.value);
   };
 
-  if (SisLoading) {
-    return <Loading />;
-  }
-
   return (
     <div className=" sm:min-h-screen py-8 sm:py-12">
       <div>
@@ -150,13 +146,17 @@ const Services = ({ params }: { params: { category: string } }) => {
           </div>
         </div>
       </div>
-      <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {data?.data?.results?.map((service: any) => {
-          return <ServiceCard key={service?._id} service={service} />;
-        })}
-      </div>
+      {SisLoading ? (
+        <Skeleton className="sm:p-12" />
+      ) : (
+        <div className="p-2 sm:p-12 grid cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {data?.data?.results?.map((service: any) => {
+            return <ServiceCard key={service?._id} service={service} />;
+          })}
+        </div>
+      )}
 
-      <div className="w-1/2 mx-auto pt-8">
+      <div className="flex justify-center pt-8">
         <Pagination
           showSizeChanger
           onChange={onShowSizeChange}
