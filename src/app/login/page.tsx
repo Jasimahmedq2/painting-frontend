@@ -24,8 +24,10 @@ const Login = () => {
   const router = useRouter();
   const [creadential, setCreadential] = useState<ILoginInput>({
     email: "jasim.dev48@gmail.com",
-    password: "12345",
+    password: "123456",
   });
+
+  console.log({creadential})
 
   const {
     register,
@@ -83,7 +85,7 @@ const Login = () => {
     setCreadential(newCreadential);
   };
   return (
-    <div className="overflow-hidden bg-gray-900 sm:h-screen">
+    <div className="overflow-hidden bg-gray-900 sm:min-h-screen">
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div className="flex flex-col items-center justify-between xl:flex-row">
           <div className="w-full max-w-xl mb-12 xl:pr-16 xl:mb-0 xl:w-7/12">

@@ -23,7 +23,7 @@ export const NavBar = () => {
   };
 
   return (
-    <div className="py-5 px-4 mx-auto md:px-8  sticky top-0 bg-white shadow z-10">
+    <div className="py-5 max-w-[1280px] px-4 mx-auto md:px-8  sticky top-0 bg-white shadow z-10">
       <div className="relative flex items-center justify-between">
         <div className="inline-flex items-center">
           <span className=" text-xl font-bold tracking-wide text-gray-800 uppercase">

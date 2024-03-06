@@ -10,7 +10,7 @@ const Footer = () => {
   const token = getFromLocalStorage(authKey);
   const { data, isLoading, isSuccess } = useGetCategoryQuery(token);
   return (
-    <div className="relative mt-16 bg-[#661fff]">
+    <div className="relative max-w-[1280px] mx-auto mt-16 bg-[#661fff]">
       <svg
         className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-[#661fff]"
         preserveAspectRatio="none"

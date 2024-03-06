@@ -42,7 +42,7 @@ const SignUp = () => {
   }, [isLoading, isError, isSuccess, router]);
 
   return (
-    <div className="relative">
+    <div className="relative sm:min-h-screen">
       <Image
         width={500}
         height={500}

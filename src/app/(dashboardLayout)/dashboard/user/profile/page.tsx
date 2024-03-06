@@ -47,7 +47,9 @@ const ProfilePage = () => {
               width={320}
               height={320}
               className="rounded-lg transform scale-105"
-              src="https://source.unsplash.com/350x350/?men"
+              src={
+                data?.data?.image || "https://source.unsplash.com/350x350/?men"
+              }
               alt="img"
             />
             <span className=" group-hover:shadow-[0px_0px_30px_2px_#0d87f8] group-hover:rotate-180 duration-500 z-30 flex justify-center items-center bg-gradient-to-tr from-[#0d87f8] to-[#70c4ff]  absolute -bottom-6 left-1/2 transform -translate-x-1/2  rounded-full w-[40px] h-[40px] bg-white">
